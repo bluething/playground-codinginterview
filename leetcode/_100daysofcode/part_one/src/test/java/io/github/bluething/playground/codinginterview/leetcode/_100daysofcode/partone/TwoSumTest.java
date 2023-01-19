@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 // problem https://leetcode.com/problems/two-sum/
@@ -27,7 +28,17 @@ public class TwoSumTest {
     }
 
     private int[] twoSum(int[] nums, int target) {
-        
-        return new int[];
+        Map<Integer, Integer> numIdx = new HashMap<>();
+        int expectedIdx = 1;
+        for (int i = 0; i < nums.length; i++) {
+            expectedIdx = target - nums[i];
+            if (numIdx.containsKey(expectedIdx)) {
+                return new int[]{numIdx.get(expectedIdx), i};
+            } else {
+                numIdx.put(nums[i], i);
+            }
+        }
+
+        return new int[]{};
     }
 }
