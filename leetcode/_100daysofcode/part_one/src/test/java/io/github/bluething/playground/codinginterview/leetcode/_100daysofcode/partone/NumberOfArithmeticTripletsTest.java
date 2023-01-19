@@ -15,6 +15,16 @@ public class NumberOfArithmeticTripletsTest {
         Assertions.assertEquals(2, arithmeticTriplets(new int[]{4,5,6,7,8,9}, 2));
     }
 
+    @Test
+    public void case03() {
+        Assertions.assertEquals(2, arithmeticTriplets2(new int[]{0,1,4,6,7,10}, 3));
+    }
+
+    @Test
+    public void case04() {
+        Assertions.assertEquals(2, arithmeticTriplets2(new int[]{4,5,6,7,8,9}, 2));
+    }
+
     private int arithmeticTriplets(int[] nums, int diff) {
         int result = 0;
         for (int i = 0; i < nums.length - 2; i++) {
@@ -24,6 +34,29 @@ public class NumberOfArithmeticTripletsTest {
                             (nums[j] - nums[i] == diff)) {
                         result++;
                     }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private int arithmeticTriplets2(int[] nums, int diff) {
+        int result = 0;
+        int j,k;
+        for (int i = 0; i < nums.length - 2; i++) {
+            j = i+1;
+            k = j+1;
+            while (k < nums.length) {
+                if ((nums[k] - nums[j] == diff) &&
+                        (nums[j] - nums[i] == diff)) {
+                    result++;
+                    k++;
+                    j++;
+                } else if (nums[k] - nums[j] < diff) {
+                    k++;
+                } else {
+                    j++;
                 }
             }
         }
