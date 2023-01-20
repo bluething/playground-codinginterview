@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // problem https://leetcode.com/problems/contains-duplicate/
 public class ContainsDuplicateTest {
 
@@ -22,7 +25,14 @@ public class ContainsDuplicateTest {
     }
 
     private boolean containsDuplicate(int[] nums) {
-        boolean isDuplicate;
+        boolean isDuplicate = false;
+        Set<Integer> uniques = new HashSet<>();
+        for (int num : nums) {
+            if (!uniques.add(num)) {
+                isDuplicate = true;
+                break;
+            }
+        }
 
         return isDuplicate;
     }
