@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // problem https://leetcode.com/problems/contains-duplicate-ii/
 public class ContainsDuplicate2Test {
 
@@ -23,6 +26,16 @@ public class ContainsDuplicate2Test {
 
     private boolean containsNearbyDuplicate(int[] nums, int k) {
         boolean isDuplicate = false;
+        Map<Integer, Integer> valIdx = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            // duplicate if the map contains the value (as index)
+            // and the map value difference with the current index <= k
+            if (valIdx.containsKey(nums[i]) && i - valIdx.get(nums[i]) <= k) {
+                isDuplicate = true;
+                break;
+            }
+            valIdx.put(nums[i], i);
+        }
 
         return isDuplicate;
     }
