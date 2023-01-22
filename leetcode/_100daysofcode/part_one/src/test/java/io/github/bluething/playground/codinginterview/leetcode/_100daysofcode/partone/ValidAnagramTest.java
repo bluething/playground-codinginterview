@@ -28,6 +28,16 @@ public class ValidAnagramTest {
         Assertions.assertFalse(isAnagram2("rat", "car"));
     }
 
+    @Test
+    public void case05() {
+        Assertions.assertTrue(isAnagram3("anagram", "nagaram"));
+    }
+
+    @Test
+    public void case06() {
+        Assertions.assertFalse(isAnagram3("rat", "car"));
+    }
+
     private boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) {
             return false;
@@ -67,6 +77,27 @@ public class ValidAnagramTest {
             if (freqs.containsKey(currentChar) && freqs.get(currentChar) > 0) {
                 freqs.put(currentChar, freqs.get(currentChar) - 1);
             } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isAnagram3(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        int[] freqs = new int[26];
+        for (int i = 0; i < s.length(); i++) { {
+            freqs[s.charAt(i) - 97]++;
+        }}
+        for (int i = 0; i < s.length(); i++) { {
+            freqs[t.charAt(i) - 97]--;
+        }}
+        for (int freq : freqs) {
+            if (freq < 0) {
                 return false;
             }
         }
