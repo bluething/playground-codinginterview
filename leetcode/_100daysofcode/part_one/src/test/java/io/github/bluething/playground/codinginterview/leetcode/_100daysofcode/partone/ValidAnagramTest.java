@@ -18,6 +18,16 @@ public class ValidAnagramTest {
         Assertions.assertFalse(isAnagram("rat", "car"));
     }
 
+    @Test
+    public void case03() {
+        Assertions.assertTrue(isAnagram2("anagram", "nagaram"));
+    }
+
+    @Test
+    public void case04() {
+        Assertions.assertFalse(isAnagram2("rat", "car"));
+    }
+
     private boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) {
             return false;
@@ -31,6 +41,31 @@ public class ValidAnagramTest {
         for (char tChar : t.toCharArray()) {
             if (freqs.containsKey(tChar) && freqs.get(tChar) > 0) {
                 freqs.put(tChar, freqs.get(tChar) - 1);
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isAnagram2(String s, String t) {
+
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        char currentChar = '\u0000';
+        Map<Character, Integer> freqs = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            currentChar = s.charAt(i);
+            freqs.put(currentChar, freqs.getOrDefault(currentChar, 0) + 1);
+        }
+
+        for (int i = 0; i < t.length(); i++) {
+            currentChar = t.charAt(i);
+            if (freqs.containsKey(currentChar) && freqs.get(currentChar) > 0) {
+                freqs.put(currentChar, freqs.get(currentChar) - 1);
             } else {
                 return false;
             }
