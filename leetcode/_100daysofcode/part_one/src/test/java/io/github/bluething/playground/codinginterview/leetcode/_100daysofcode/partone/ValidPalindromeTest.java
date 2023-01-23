@@ -25,6 +25,26 @@ public class ValidPalindromeTest {
         Assertions.assertTrue(isPalindrome(".,"));
     }
 
+    @Test
+    public void case05() {
+        Assertions.assertTrue(isPalindrome2("A man, a plan, a canal: Panama"));
+    }
+
+    @Test
+    public void case06() {
+        Assertions.assertFalse(isPalindrome2("race a car"));
+    }
+
+    @Test
+    public void case07() {
+        Assertions.assertTrue(isPalindrome2(" "));
+    }
+
+    @Test
+    public void case08() {
+        Assertions.assertTrue(isPalindrome2(".,"));
+    }
+
     private boolean isPalindrome(String s) {
         int i = 0;
         int j = s.length() - 1;
@@ -53,5 +73,46 @@ public class ValidPalindromeTest {
         }
 
         return false;
+    }
+
+    private boolean isPalindrome2(String s) {
+        // hold alphanumeric (0-9, A-Z, a-z)
+        // the ascii code as an index
+        // fill with incremental integer value start from 1
+        char[] holder = new char[256];
+        for (int i = 0; i < 10; i++) {
+            holder[i + '0'] = (char) (1 + i);
+        }
+        for (int i = 0; i < 26; i++) {
+            holder[i + 'a'] = holder[i + 'A'] = (char) (11 + i);
+        }
+
+        char[] sChars = s.toCharArray();
+        int i = 0;
+        int j = s.length() - 1;
+        char ci;
+        char cj;
+        while (i < j) {
+            ci = holder[sChars[i]];
+            cj = holder[sChars[j]];
+            // if found integer value > 0, it's mean alphanumeric, compare it to check if the char are same
+            // else means the char aren't alphanumeric, then we need to move the pointer if the char wasn't alphanumeric
+            if (ci != 0 && cj != 0) {
+                if (ci != cj) {
+                    return false;
+                }
+                i++;
+                j--;
+            } else {
+                if (ci == 0) {
+                    i++;
+                }
+                if (cj == 0) {
+                    j--;
+                }
+            }
+        }
+
+        return true;
     }
 }
