@@ -21,7 +21,43 @@ public class ValidPalindrome2Test {
         Assertions.assertFalse(validPalindrome("abc"));
     }
 
+    @Test
+    public void case04() {
+        Assertions.assertTrue(validPalindrome("deeee"));
+    }
+
+    @Test
+    public void case05() {
+        Assertions.assertFalse(validPalindrome("eeccccbebaeeabebccceea"));
+    }
+
     private boolean validPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                if (isPalindrome(s, i, j - 1)) {
+                    return true;
+                }
+                return isPalindrome(s, i + 1, j);
+            }
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+
+    private boolean isPalindrome(String s, int i, int j) {
+        s = s.toLowerCase();
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+
         return true;
     }
 }
