@@ -56,6 +56,31 @@ public class ValidPalindrome2Test {
         Assertions.assertFalse(validPalindrome2("eeccccbebaeeabebccceea"));
     }
 
+    @Test
+    public void case11() {
+        Assertions.assertTrue(validPalindrome3("aba"));
+    }
+
+    @Test
+    public void case12() {
+        Assertions.assertTrue(validPalindrome3("abca"));
+    }
+
+    @Test
+    public void case13() {
+        Assertions.assertFalse(validPalindrome3("abc"));
+    }
+
+    @Test
+    public void case14() {
+        Assertions.assertTrue(validPalindrome3("deeee"));
+    }
+
+    @Test
+    public void case15() {
+        Assertions.assertFalse(validPalindrome3("eeccccbebaeeabebccceea"));
+    }
+
     private boolean validPalindrome(String s) {
         int i = 0;
         int j = s.length() - 1;
@@ -109,5 +134,19 @@ public class ValidPalindrome2Test {
         // check if the substring (eliminate either single char in left of right) is palindrome
         // don't forget to reduce the quota
         return isPalindromeRecs(s, i+1, j, removeQuota-1) || isPalindromeRecs(s, i, j-1, removeQuota-1);
+    }
+
+    private boolean validPalindrome3(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return isPalindrome(s, i, j - 1) || isPalindrome(s, i + 1, j);
+            }
+            i++;
+            j--;
+        }
+
+        return true;
     }
 }
