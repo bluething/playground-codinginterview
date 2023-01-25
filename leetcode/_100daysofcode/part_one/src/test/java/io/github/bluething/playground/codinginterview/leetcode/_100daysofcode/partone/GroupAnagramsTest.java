@@ -3,17 +3,15 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GroupAnagramsTest {
 
     @Test
     public void case01() {
-        List<List<String>> expected = Arrays.asList(Arrays.asList("bat"),
-                Arrays.asList("nat","tan"),
-                Arrays.asList("ate","eat","tea"));
+        List<List<String>> expected = Arrays.asList(Arrays.asList("eat","tea","ate"),
+                Arrays.asList("bat"),
+                Arrays.asList("tan", "nat"));
         Assertions.assertEquals(expected, groupAnagrams(new String[]{"eat","tea","tan","ate","nat","bat"}));
     }
 
@@ -30,6 +28,21 @@ public class GroupAnagramsTest {
     }
 
     private List<List<String>> groupAnagrams(String[] strs) {
-        return Collections.emptyList();
+        Map<String, List<String>> anagrams = new HashMap<>();
+        char[] cStr = null;
+        String sortStr = "";
+        for (String str : strs) {
+            cStr = str.toCharArray();
+            Arrays.sort(cStr);
+            sortStr = new String(cStr);
+            if (anagrams.containsKey(sortStr)) {
+                anagrams.get(sortStr).add(str);
+            } else {
+                anagrams.put(sortStr, new ArrayList<>(Arrays.asList(str)));
+            }
+
+        }
+
+        return new ArrayList<>(anagrams.values());
     }
 }
