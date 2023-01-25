@@ -28,6 +28,30 @@ public class ThreeSumTest {
     }
 
     private List<List<Integer>> threeSum(int[] nums) {
-        return Collections.emptyList();
+        Arrays.sort(nums);
+        int j, k, sum;
+        List<List<Integer>> triplets = new ArrayList<>();
+        Set<String> uniqueTriplets = new HashSet<>();
+        String sTriplet = "";
+        for (int i = 0; i < nums.length - 1; i++) {
+            j = i+1;
+            k = nums.length - 1;
+            while (j < k) {
+                sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                    sTriplet = nums[i] + "" + nums[j] + "" + nums[k];
+                    if (uniqueTriplets.add(sTriplet)) {
+                        triplets.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    }
+                    j++;
+                    k--;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return triplets;
     }
 }
