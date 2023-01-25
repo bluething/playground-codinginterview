@@ -31,17 +31,17 @@ public class ThreeSumTest {
         Arrays.sort(nums);
         int j, k, sum;
         List<List<Integer>> triplets = new ArrayList<>();
-        Set<String> uniqueTriplets = new HashSet<>();
-        String sTriplet = "";
+        List<Integer> triplet;
+        Set<List<Integer>> uniqueTriplets = new HashSet<>();
         for (int i = 0; i < nums.length - 1; i++) {
             j = i+1;
             k = nums.length - 1;
             while (j < k) {
                 sum = nums[i] + nums[j] + nums[k];
                 if (sum == 0) {
-                    sTriplet = nums[i] + "" + nums[j] + "" + nums[k];
-                    if (uniqueTriplets.add(sTriplet)) {
-                        triplets.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    triplet = Arrays.asList(nums[i], nums[j], nums[k]);
+                    if (uniqueTriplets.add(triplet)) {
+                        triplets.add(triplet);
                     }
                     j++;
                     k--;
