@@ -31,7 +31,23 @@ public class ConvertSortedArrayToBinarySearchTreeTest {
     }
 
     private TreeNode sortedArrayToBST(int[] nums) {
-        return null;
+        return createBST(nums, 0, nums.length-1);
+    }
+
+    private TreeNode createBST(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+
+        // because nums already sort by asc, we need to find the middle element as a root
+        int mid = (left + right) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        // for left side we start over from left until mid-1
+        root.left = createBST(nums, left, mid-1);
+        // for right side we start over from m+1 until right
+        root.right = createBST(nums, mid+1, right);
+        return root;
+
     }
 
     private List<Integer> inorderTraversal(TreeNode root) {
