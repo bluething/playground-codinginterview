@@ -22,9 +22,12 @@ public class PascalTriangleIITest {
 
     private List<Integer> getRow(int rowIndex) {
         List<Integer> currentRow = new ArrayList<>();
+        // init 1st row (idx 0)
         currentRow.add(1);
         List<Integer> prevRow;
 
+        // start from 2nd row (idx 1)
+        // iterate until i == rowIndex because the rowIndex represent line+1
         for (int i = 1; i <= rowIndex; i++) {
             prevRow = currentRow;
             currentRow = new ArrayList<>();
