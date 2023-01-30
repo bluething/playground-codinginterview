@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,21 @@ public class SingleNumberTest {
         Assertions.assertEquals(1, singleNumber(new int[]{1}));
     }
 
+    @Test
+    public void case04() {
+        Assertions.assertEquals(1, singleNumber2(new int[]{2,2,1}));
+    }
+
+    @Test
+    public void case05() {
+        Assertions.assertEquals(4, singleNumber2(new int[]{4,1,2,1,2}));
+    }
+
+    @Test
+    public void case06() {
+        Assertions.assertEquals(1, singleNumber2(new int[]{1}));
+    }
+
     private int singleNumber(int[] nums) {
         Map<Integer, Integer> numFreq = new HashMap<>();
         for (int num : nums) {
@@ -40,5 +56,16 @@ public class SingleNumberTest {
         }
 
         return -1;
+    }
+
+    private int singleNumber2(int[] nums) {
+        Arrays.sort(nums);
+        // check for pair
+        for (int i = 0; i < nums.length-1; i += 2) {
+            if (nums[i] != nums[i+1]) {
+                return nums[i];
+            }
+        }
+        return nums[nums.length-1];
     }
 }
