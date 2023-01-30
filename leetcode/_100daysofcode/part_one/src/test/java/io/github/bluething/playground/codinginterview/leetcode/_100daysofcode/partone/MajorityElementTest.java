@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class MajorityElementTest {
 
     @Test
@@ -16,6 +18,7 @@ public class MajorityElementTest {
     }
 
     private int majorityElement(int[] nums) {
-        return -1;
+        Arrays.sort(nums);
+        return nums[nums.length/2];
     }
 }
