@@ -39,6 +39,21 @@ public class SingleNumberTest {
         Assertions.assertEquals(1, singleNumber2(new int[]{1}));
     }
 
+    @Test
+    public void case07() {
+        Assertions.assertEquals(1, singleNumber3(new int[]{2,2,1}));
+    }
+
+    @Test
+    public void case08() {
+        Assertions.assertEquals(4, singleNumber3(new int[]{4,1,2,1,2}));
+    }
+
+    @Test
+    public void case09() {
+        Assertions.assertEquals(1, singleNumber3(new int[]{1}));
+    }
+
     private int singleNumber(int[] nums) {
         Map<Integer, Integer> numFreq = new HashMap<>();
         for (int num : nums) {
@@ -67,5 +82,16 @@ public class SingleNumberTest {
             }
         }
         return nums[nums.length-1];
+    }
+
+    private int singleNumber3(int[] nums) {
+        // any value XoR with 0 will return the value itself
+        int result = 0;
+        for (int num : nums) {
+            // a ^ b ^ a = (a ^ a) ^ b = 0 ^ b
+            result ^= num;
+        }
+
+        return result;
     }
 }
