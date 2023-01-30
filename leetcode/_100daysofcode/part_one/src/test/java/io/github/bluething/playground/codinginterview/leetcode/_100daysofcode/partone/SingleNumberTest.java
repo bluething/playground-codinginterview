@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SingleNumberTest {
 
     @Test
@@ -21,6 +24,21 @@ public class SingleNumberTest {
     }
 
     private int singleNumber(int[] nums) {
-        return 0;
+        Map<Integer, Integer> numFreq = new HashMap<>();
+        for (int num : nums) {
+            if (numFreq.containsKey(num)) {
+                numFreq.put(num, numFreq.get(num) + 1);
+            } else {
+                numFreq.put(num, 1);
+            }
+        }
+
+        for (int i : numFreq.keySet()) {
+            if (numFreq.get(i) == 1) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
