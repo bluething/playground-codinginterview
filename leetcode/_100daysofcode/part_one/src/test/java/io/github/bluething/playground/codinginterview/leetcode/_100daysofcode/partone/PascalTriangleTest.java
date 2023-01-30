@@ -22,14 +22,18 @@ public class PascalTriangleTest {
 
     private List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new ArrayList<>();
+        // init 1st row
         result.add(Arrays.asList(1));
 
         List<Integer> currentRow;
         List<Integer> prevRow;
+        // start from 2nd row
+        // why start from 1? because we use 0 index
         for (int i = 1; i < numRows; i++) {
             currentRow = new ArrayList<>();
             prevRow = result.get(i-1);
             currentRow.add(1);
+            // for each row we need to iterate as much as current line - 1
             for (int j = 1; j < i; j++) {
                 currentRow.add(prevRow.get(j - 1) + prevRow.get(j));
             }
