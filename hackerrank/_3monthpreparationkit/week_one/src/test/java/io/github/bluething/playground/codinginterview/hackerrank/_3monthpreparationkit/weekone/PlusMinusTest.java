@@ -15,7 +15,27 @@ public class PlusMinusTest extends ParentTest {
     }
 
     private void plusMinus(List<Integer> arr) {
-        // Write your code here
+        float positiveRatio = 0f;
+        float negativeRatio = 0f;
+        float zeroRatio = 0f;
+        int arrSize = arr.size();
+        for (int value : arr) {
+            if (value > 0) {
+                positiveRatio++;
+            } else if (value < 0) {
+                negativeRatio++;
+            } else {
+                zeroRatio++;
+            }
+        }
+
+        positiveRatio /= arrSize;
+        negativeRatio /= arrSize;
+        zeroRatio /= arrSize;
+
+        System.out.println(String.format("%6f", positiveRatio));
+        System.out.println(String.format("%6f", negativeRatio));
+        System.out.println(String.format("%6f", zeroRatio));
 
     }
 }
