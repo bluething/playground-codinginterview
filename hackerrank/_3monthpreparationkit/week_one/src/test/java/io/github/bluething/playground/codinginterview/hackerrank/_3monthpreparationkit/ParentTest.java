@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-abstract class ParentTest {
-    private static final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    private static final PrintStream originalOutput = System.out;
+public abstract class ParentTest {
+    public static final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    public static final PrintStream originalOutput = System.out;
 
     @BeforeAll
     public static void setup() {
