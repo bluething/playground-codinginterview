@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,32 @@ public class FindResultantArrayAfterRemovingAnagramsTest {
     }
 
     private List<String> removeAnagrams(String[] words) {
-        return Collections.emptyList();
+        List<String> results = new ArrayList<>();
+        results.add(words[0]);
+        for (int i = 1; i < words.length; i++) {
+            if (isAnagram(words[i-1], words[i])) {
+                continue;
+            }
+            results.add(words[i]);
+        }
+
+        return results;
+    }
+
+    private boolean isAnagram(String s1, String s2) {
+        int[] alphabetIdx = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            alphabetIdx[s1.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < s2.length(); i++) {
+            alphabetIdx[s2.charAt(i) - 'a']--;
+        }
+        for (int i = 0; i < alphabetIdx.length; i++) {
+            if (alphabetIdx[i] != 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
