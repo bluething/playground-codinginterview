@@ -31,6 +31,31 @@ public class ValidParenthesesTest {
         Assertions.assertFalse(isValid("["));
     }
 
+    @Test
+    void case06() {
+        Assertions.assertTrue(isValid2("()"));
+    }
+
+    @Test
+    void case07() {
+        Assertions.assertTrue(isValid2("()[]{}"));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertFalse(isValid2("(]"));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertFalse(isValid2("]"));
+    }
+
+    @Test
+    void case010() {
+        Assertions.assertFalse(isValid2("["));
+    }
+
     private boolean isValid(String s) {
         Stack<Character> openParnetheses = new Stack<>();
         char open;
@@ -57,5 +82,31 @@ public class ValidParenthesesTest {
         }
 
         return true;
+    }
+
+    private boolean isValid2(String s) {
+        char[] stack = new char[s.length()];
+        char[] mapping = new char[128];
+        mapping[')'] = '(';
+        mapping['}'] = '{';
+        mapping[']'] = '[';
+        int idx = 0;
+        for (char sChar : s.toCharArray()) {
+            // if current char is close, try to compare with top stack
+            // else put the char to top
+            if (mapping[sChar] != 0) {
+                if (idx == 0) {
+                    return false;
+                }
+                if (stack[idx-1] != mapping[sChar]) {
+                    return false;
+                }
+                idx--;
+            } else {
+                stack[idx++] = sChar;
+            }
+        }
+
+        return idx ==0;
     }
 }
