@@ -24,7 +24,30 @@ public class ReverseLinkedListTest {
     }
 
     private ListNode reverseList(ListNode head) {
-        return null;
+        ListNode current = head;
+        ListNode prev = null;
+        ListNode next = null;
+        while (current != null) {
+            // current = 1-2-3-4-5
+            // next = 2-3-4-5
+            // prev = null
+            next = current.next;
+            // current = 1-null
+            // next = 2-3-4-5
+            // prev = null
+            current.next = prev;
+            // current = 1
+            // next = 2-3-4-5
+            // prev = 1 - null
+            prev = current;
+            // current = 2-3-4-5
+            // next = 2-3-4-5
+            // prev = 1 - null
+            current = next;
+        }
+
+        head = prev;
+        return head;
     }
 }
 
