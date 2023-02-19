@@ -3,9 +3,7 @@ package io.github.bluething.playground.codinginterview.hackerrank._3monthprepara
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // https://www.hackerrank.com/challenges/three-month-preparation-kit-sparse-arrays/problem
 public class SparseArraysTest {
@@ -29,6 +27,21 @@ public class SparseArraysTest {
     }
 
     private List<Integer> matchingStrings(List<String> strings, List<String> queries) {
-        return Collections.emptyList();
+        Map<String, Integer> queryCounters = new HashMap<>();
+        for (String query : queries) {
+            queryCounters.put(query, 0);
+        }
+        for (String string : strings) {
+            if (queryCounters.containsKey(string)) {
+                queryCounters.put(string, queryCounters.get(string) + 1);
+            }
+        }
+
+        List<Integer> results = new ArrayList<>();
+        for (String query : queries) {
+            results.add(queryCounters.get(query));
+        }
+
+        return results;
     }
 }
