@@ -22,6 +22,17 @@ public class TimeConversionTest {
     }
 
     private String timeConversion(String s) {
-        return "";
+        int hour = Integer.valueOf(s.substring(0, 2));
+        int minute = Integer.valueOf(s.substring(3,5));
+        int second = Integer.valueOf(s.substring(6,8));
+        boolean isMidnight = s.substring(8,10).equals("AM") ? true : false;
+
+        if (isMidnight) {
+            hour = hour % 12;
+        } else {
+            hour = (hour % 12) + 12;
+        }
+
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }
