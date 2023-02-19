@@ -22,9 +22,22 @@ public class MinMaxSumTest extends ParentTest {
         miniMaxSum(Arrays.asList(1,2,3,4,5));
         Assertions.assertEquals("10 14", output.toString());
     }
+
+    @Test
+    public void case03() {
+        miniMaxSum2(Arrays.asList(1, 2, 3, 4, 5));
+        Assertions.assertEquals("10 14", output.toString());
+    }
+
+    @Test
+    public void case04() {
+        miniMaxSum2(Arrays.asList(7, 69, 2, 221, 8974));
+        Assertions.assertEquals("299 9271", output.toString());
+    }
+
     private void miniMaxSum(List<Integer> arr) {
         arr.sort(Comparator.naturalOrder());
-        int min = 0;
+        long min = 0L;
         long max = 0L;
         for (int i = 0; i < arr.size()-1; i++) {
             min += arr.get(i);
@@ -32,5 +45,20 @@ public class MinMaxSumTest extends ParentTest {
         }
 
         System.out.print(min + " " + max);
+    }
+
+    private void miniMaxSum2(List<Integer> arr) {
+        long min = Integer.MAX_VALUE;
+        long max = Integer.MIN_VALUE;
+        long sum = 0L;
+        for (int arrVal : arr) {
+            // find largest and smallest value
+            min = Long.min(min, arrVal);
+            max = Long.max(max, arrVal);
+            sum += arrVal;
+        }
+
+        // just subtract max from sum to get min sum, vice versa
+        System.out.print((sum-max) + " " + (sum-min));
     }
 }
