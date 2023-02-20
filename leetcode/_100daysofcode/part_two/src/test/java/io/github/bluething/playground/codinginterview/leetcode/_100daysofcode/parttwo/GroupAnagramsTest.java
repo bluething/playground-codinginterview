@@ -29,6 +29,18 @@ public class GroupAnagramsTest {
 
     private List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> anagrams = new HashMap<>();
+        char[] charStr;
+        String sortedStr;
+        for (String str : strs) {
+            charStr = str.toCharArray();
+            Arrays.sort(charStr);
+            sortedStr = String.valueOf(charStr);
+            if (anagrams.get(sortedStr) == null) {
+                anagrams.put(sortedStr, new ArrayList<>(Arrays.asList(str)));
+            } else {
+                anagrams.get(sortedStr).add(str);
+            }
+        }
 
         return new ArrayList<>(anagrams.values());
     }
