@@ -19,12 +19,32 @@ public class MergeTwoSortedListsTest {
     }
 
     private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        return null;
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+
+        // compare the head
+        // for list that have smaller value, give the head to merged
+        // now, we want to find which value become the next node
+        // recursively give the next smaller list node and the other one to the next call
+        ListNode merged = null;
+        if (list1.val <= list2.val) {
+            merged = list1;
+            merged.next = mergeTwoLists(list1.next, list2);
+        } else {
+            merged = list2;
+            merged.next = mergeTwoLists(list1, list2.next);
+        }
+
+        return merged;
     }
 
     class ListNode {
         int val;
-        io.github.bluething.playground.codinginterview.leetcode._100daysofcode.parttwo.ListNode next;
+        ListNode next;
 
         ListNode() {
         }
@@ -33,7 +53,7 @@ public class MergeTwoSortedListsTest {
             this.val = val;
         }
 
-        ListNode(int val, io.github.bluething.playground.codinginterview.leetcode._100daysofcode.parttwo.ListNode next) {
+        ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
