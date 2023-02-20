@@ -27,6 +27,26 @@ public class GroupAnagramsTest {
         Assertions.assertEquals(expected, groupAnagrams(new String[]{"a"}));
     }
 
+    @Test
+    public void case04() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList("eat","tea","ate"),
+                Arrays.asList("bat"),
+                Arrays.asList("tan", "nat"));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{"eat","tea","tan","ate","nat","bat"}));
+    }
+
+    @Test
+    public void case05() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList(""));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{""}));
+    }
+
+    @Test
+    public void case06() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList("a"));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{"a"}));
+    }
+
     private List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> anagrams = new HashMap<>();
         char[] charStr;
@@ -35,6 +55,26 @@ public class GroupAnagramsTest {
             charStr = str.toCharArray();
             Arrays.sort(charStr);
             sortedStr = String.valueOf(charStr);
+            if (anagrams.get(sortedStr) == null) {
+                anagrams.put(sortedStr, new ArrayList<>(Arrays.asList(str)));
+            } else {
+                anagrams.get(sortedStr).add(str);
+            }
+        }
+
+        return new ArrayList<>(anagrams.values());
+    }
+
+    private List<List<String>> groupAnagrams2(String[] strs) {
+        Map<String, List<String>> anagrams = new HashMap<>();
+        char[] freq;
+        String sortedStr;
+        for (String str : strs) {
+            freq  = new char[26];
+            for (int i = 0; i < str.length(); i++) {
+                freq[str.charAt(i) - 'a']++;
+            }
+            sortedStr = String.valueOf(freq);
             if (anagrams.get(sortedStr) == null) {
                 anagrams.put(sortedStr, new ArrayList<>(Arrays.asList(str)));
             } else {
