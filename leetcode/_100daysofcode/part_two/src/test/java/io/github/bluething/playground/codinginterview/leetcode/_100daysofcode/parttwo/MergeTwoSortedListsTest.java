@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class MergeTwoSortedListsTest {
 
     @Test
-    public void case01() {
+    void case01() {
         ListNode fourOne = new ListNode(4);
         ListNode twoOne = new ListNode(2, fourOne);
         ListNode oneOne = new ListNode(1, twoOne);
@@ -16,6 +16,19 @@ public class MergeTwoSortedListsTest {
         ListNode oneTwo = new ListNode(1, threeTwo);
 
         mergeTwoLists(oneTwo, oneOne);
+    }
+
+    @Test
+    void case02() {
+        ListNode fourOne = new ListNode(4);
+        ListNode twoOne = new ListNode(2, fourOne);
+        ListNode oneOne = new ListNode(1, twoOne);
+
+        ListNode fourTwo = new ListNode(4);
+        ListNode threeTwo = new ListNode(3, fourTwo);
+        ListNode oneTwo = new ListNode(1, threeTwo);
+
+        mergeTwoLists2(oneTwo, oneOne);
     }
 
     private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
@@ -40,6 +53,29 @@ public class MergeTwoSortedListsTest {
         }
 
         return merged;
+    }
+
+    // using 2 object that point to same list
+    // pointer is our helper reference
+    private ListNode mergeTwoLists2(ListNode list1, ListNode list2) {
+        ListNode merged = new ListNode(-1);
+        ListNode pointer = merged;
+
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                pointer.next = list1;
+                list1 = list1.next;
+            } else {
+                pointer.next = list2;
+                list2 = list2.next;
+            }
+
+            pointer = pointer.next;
+        }
+
+        pointer.next = list1 != null ? list1 : list2;
+
+        return merged.next;
     }
 
     class ListNode {
