@@ -20,7 +20,15 @@ public class LonelyIntegerTest extends ParentTest {
         Assertions.assertEquals(4, lonelyinteger(Arrays.asList(1, 2, 3, 4, 3, 2, 1)));
     }
 
+    // With XOR operator:
+    //  n ^ 0 = n
+    // m ^ m = 0
+    // n ^ m ^ m = n
     private int lonelyinteger(List<Integer> a) {
-        return 0;
+        int lonely = 0;
+        for (int val : a) {
+            lonely = lonely ^ val;
+        }
+        return lonely;
     }
 }
