@@ -20,6 +20,10 @@ public class FlippingBitsTest extends ParentTest {
         Assertions.assertEquals(4294967295L, flippingBits(0L));
     }
 
+    // Unsigned 32-bits of 1 is 00000000000000000000000000000001
+    // 0xffffffffL = 4294967295 -> unsigned 32-bit integer
+    // 0xffffffffL = 11111111111111111111111111111111
+    // The bitwise complement (~) of any integer N is equal to - (N + 1)
     private long flippingBits(long n) {
         return ~n & 0xffffffffL;
     }
