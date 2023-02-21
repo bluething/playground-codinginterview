@@ -21,6 +21,6 @@ public class FlippingBitsTest extends ParentTest {
     }
 
     private long flippingBits(long n) {
-        return 0L;
+        return ~n & 0xffffffffL;
     }
 }
