@@ -4,6 +4,7 @@ import io.github.bluething.playground.codinginterview.hackerrank._3monthpreparat
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,24 @@ public class GradingStudentsTest extends ParentTest {
     }
 
     private List<Integer> gradingStudents(List<Integer> grades) {
-        return null;
+        List<Integer> roundedGrades = new ArrayList<>();
+        int roundedGrade;
+        int roundedCandidate;
+        for (Integer grade : grades) {
+            roundedCandidate = (grade - grade % 5) + 5;
+            if (roundedCandidate < 40) {
+                roundedGrade = grade;
+            } else {
+                if (roundedCandidate - grade < 3) {
+                    roundedGrade = roundedCandidate;
+                } else {
+                    roundedGrade = grade;
+                }
+            }
+
+            roundedGrades.add(roundedGrade);
+        }
+
+        return roundedGrades;
     }
 }
