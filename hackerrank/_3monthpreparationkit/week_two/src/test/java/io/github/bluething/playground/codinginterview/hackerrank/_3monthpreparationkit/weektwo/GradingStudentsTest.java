@@ -16,10 +16,10 @@ public class GradingStudentsTest extends ParentTest {
 
     @Test
     public void case02() {
-        Assertions.assertEquals(Arrays.asList(75, 67, 40, 33), gradingStudents(Arrays.asList(73, 67, 38, 33)));
+        Assertions.assertEquals(Arrays.asList(75, 67, 40, 33), gradingStudents2(Arrays.asList(73, 67, 38, 33)));
     }
 
-    private List<Integer> gradingStudents(List<Integer> grades) {
+    private List<Integer> gradingStudents2(List<Integer> grades) {
         List<Integer> roundedGrades = new ArrayList<>();
         int roundedGrade;
         int roundedCandidate;
@@ -38,6 +38,20 @@ public class GradingStudentsTest extends ParentTest {
             roundedGrades.add(roundedGrade);
         }
 
+        return roundedGrades;
+    }
+
+    private List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> roundedGrades = new ArrayList<>();
+        int diff = 0;
+        for (Integer grade : grades) {
+            diff = grade % 5;
+            if (grade < 38 || diff < 3) {
+                roundedGrades.add(grade);
+            } else {
+                roundedGrades.add((grade - grade % 5) + 5);
+            }
+        }
         return roundedGrades;
     }
 }
