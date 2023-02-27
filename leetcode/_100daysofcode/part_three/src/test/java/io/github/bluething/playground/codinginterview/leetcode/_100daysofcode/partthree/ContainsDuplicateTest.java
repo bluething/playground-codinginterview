@@ -25,6 +25,13 @@ public class ContainsDuplicateTest {
 
     private boolean containsDuplicate(int[] nums) {
         boolean isDuplicate = false;
+        Set<Integer> uniqueNums = new HashSet<>();
+        for (int num : nums) {
+            if (!uniqueNums.add(num)) {
+                isDuplicate = true;
+                break;
+            }
+        }
 
         return isDuplicate;
     }
