@@ -21,6 +21,18 @@ public class ValidAnagramTest {
     }
 
     private boolean isAnagram(String s, String t) {
+        int[] marks = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            marks[s.charAt(i)-97]++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            marks[t.charAt(i)-97]--;
+        }
+        for (int i = 0; i < marks.length; i++) {
+            if (marks[i] != 0) {
+                return false;
+            }
+        }
 
         return true;
     }
