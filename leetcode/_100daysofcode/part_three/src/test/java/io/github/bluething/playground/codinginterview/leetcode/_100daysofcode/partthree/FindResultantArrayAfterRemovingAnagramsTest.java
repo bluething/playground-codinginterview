@@ -23,7 +23,28 @@ public class FindResultantArrayAfterRemovingAnagramsTest {
 
     private List<String> removeAnagrams(String[] words) {
         List<String> results = new ArrayList<>();
+        for (int i = 0; i < words.length;) {
+            int nextIdx = i+1;
+            while (nextIdx < words.length && isAnagram(words[i], words[nextIdx])) {
+                nextIdx++;
+            }
+            results.add(words[i]);
+            i = nextIdx;
+        }
 
         return results;
+    }
+
+    private boolean isAnagram(String s1, String s2) {
+        int[] marks = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            marks[s1.charAt(i)-97]++;
+        }
+        for (int i = 0; i < s2.length(); i++) {
+            if (--marks[s2.charAt(i)-97] < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
