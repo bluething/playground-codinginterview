@@ -20,6 +20,21 @@ public class ValidAnagramTest {
         Assertions.assertFalse(isAnagram("a", "ab"));
     }
 
+    @Test
+    public void case04() {
+        Assertions.assertTrue(isAnagram2("anagram", "nagaram"));
+    }
+
+    @Test
+    public void case05() {
+        Assertions.assertFalse(isAnagram2("rat", "car"));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertFalse(isAnagram2("a", "ab"));
+    }
+
     private boolean isAnagram(String s, String t) {
         int[] marks = new int[26];
         for (int i = 0; i < s.length(); i++) {
@@ -34,6 +49,19 @@ public class ValidAnagramTest {
             }
         }
 
+        return true;
+    }
+
+    private boolean isAnagram2(String s, String t) {
+        int[] marks = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            marks[s.charAt(i)-97]++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            if (--marks[t.charAt(i)-97] < 0) {
+                return false;
+            }
+        }
         return true;
     }
 }
