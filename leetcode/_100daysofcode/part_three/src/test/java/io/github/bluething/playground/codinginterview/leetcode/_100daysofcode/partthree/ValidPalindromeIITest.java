@@ -55,10 +55,34 @@ public class ValidPalindromeIITest {
         Assertions.assertFalse(validPalindrome2("eeccccbebaeeabebccceea"));
     }
 
+    @Test
+    public void case11() {
+        Assertions.assertTrue(validPalindrome3("aba"));
+    }
+
+    @Test
+    public void case12() {
+        Assertions.assertTrue(validPalindrome3("abca"));
+    }
+
+    @Test
+    public void case13() {
+        Assertions.assertFalse(validPalindrome3("abc"));
+    }
+
+    @Test
+    public void case14() {
+        Assertions.assertTrue(validPalindrome3("deeee"));
+    }
+
+    @Test
+    public void case15() {
+        Assertions.assertFalse(validPalindrome3("eeccccbebaeeabebccceea"));
+    }
+
     private boolean validPalindrome(String s) {
         int i = 0;
         int j = s.length()-1;
-        s.toLowerCase();
         while (i < j) {
             if (s.charAt(i) != s.charAt(j)) {
                 if (isPalindrome(s, i, j-1)) {
@@ -102,5 +126,19 @@ public class ValidPalindromeIITest {
         // continue checking palindrome with reduce the quota
         // must check the char after/before unequal char
         return isPalindromeRec(s, i+1, j, removeQuota-1) || isPalindromeRec(s, i, j-1, removeQuota-1);
+    }
+
+    private boolean validPalindrome3(String s) {
+        int i = 0;
+        int j = s.length()-1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return isPalindrome(s, i+1, j) || isPalindrome(s, i, j-1);
+            }
+            i++;
+            j--;
+        }
+
+        return true;
     }
 }
