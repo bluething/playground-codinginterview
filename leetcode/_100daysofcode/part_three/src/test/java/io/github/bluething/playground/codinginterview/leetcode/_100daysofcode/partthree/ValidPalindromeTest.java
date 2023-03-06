@@ -25,7 +25,7 @@ public class ValidPalindromeTest {
         Assertions.assertTrue(isPalindrome(".,"));
     }
 
-    public boolean isPalindrome(String s) {
+    private boolean isPalindrome(String s) {
 
         return true;
     }
