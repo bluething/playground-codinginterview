@@ -10,6 +10,11 @@ public class CountingValleysTest {
         Assertions.assertEquals(1, countingValleys(8, "UDDDUDUU"));
     }
 
+    @Test
+    public void case02() {
+        Assertions.assertEquals(1, countingValleys2(8, "UDDDUDUU"));
+    }
+
     private int countingValleys(int steps, String path) {
         boolean isInValley = false;
         int numOfValley = 0;
@@ -29,6 +34,23 @@ public class CountingValleysTest {
                 isInValley = true;
             } else {
                 isInValley = false;
+            }
+        }
+        return numOfValley;
+    }
+
+    private int countingValleys2(int steps, String path) {
+        int numOfValley = 0;
+        int seaLevel = 0;
+        for (Character pathChar : path.toCharArray()) {
+            if (pathChar == 'U') {
+                seaLevel++;
+            } else {
+                seaLevel--;
+            }
+
+            if (seaLevel == 0 && pathChar == 'U') {
+                numOfValley++;
             }
         }
         return numOfValley;
