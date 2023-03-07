@@ -27,6 +27,18 @@ public class DiagonalDifferenceTest {
     }
 
     private int diagonalDifference(List<List<Integer>> arr) {
-        return 0;
+        int sumLeft = 0;
+        int sumRight = 0;
+        int i = 0;
+        int j = 0;
+        int k = arr.get(0).size() - 1;
+        while (i < arr.size()) {
+            sumLeft += arr.get(i).get(j);
+            sumRight += arr.get(i).get(k);
+            j++;
+            k--;
+            i++;
+        }
+        return Math.abs(sumRight - sumLeft);
     }
 }
