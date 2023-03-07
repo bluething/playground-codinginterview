@@ -11,6 +11,26 @@ public class CountingValleysTest {
     }
 
     private int countingValleys(int steps, String path) {
-        return 0;
+        boolean isInValley = false;
+        int numOfValley = 0;
+        int seaLevel = 0;
+        for (Character pathChar : path.toCharArray()) {
+            if (pathChar == 'U') {
+                seaLevel++;
+            } else {
+                seaLevel--;
+            }
+
+            if (isInValley && seaLevel == 0) {
+                numOfValley++;
+            }
+
+            if (seaLevel < 0) {
+                isInValley = true;
+            } else {
+                isInValley = false;
+            }
+        }
+        return numOfValley;
     }
 }
