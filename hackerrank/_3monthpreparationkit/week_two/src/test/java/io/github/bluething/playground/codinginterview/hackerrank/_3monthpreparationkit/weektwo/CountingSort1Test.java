@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.hackerrank._3monthprepara
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,14 @@ public class CountingSort1Test {
     }
 
     private List<Integer> countingSort(List<Integer> arr) {
-        return null;
+        int[] freqCount = new int[100];
+        for (Integer val : arr) {
+            freqCount[val]++;
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < freqCount.length; i++) {
+            result.add(freqCount[i]);
+        }
+        return result;
     }
 }
