@@ -32,6 +32,31 @@ public class ValidParenthesesTest {
         Assertions.assertFalse(isValid("["));
     }
 
+    @Test
+    void case06() {
+        Assertions.assertTrue(isValid2("()"));
+    }
+
+    @Test
+    void case07() {
+        Assertions.assertTrue(isValid2("()[]{}"));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertFalse(isValid2("(]"));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertFalse(isValid2("]"));
+    }
+
+    @Test
+    void case010() {
+        Assertions.assertFalse(isValid2("["));
+    }
+
     private boolean isValid(String s) {
         Stack<Character> parentheses = new Stack<>();
         char popChar;
@@ -57,5 +82,34 @@ public class ValidParenthesesTest {
             return false;
         }
         return true;
+    }
+
+    private boolean isValid2(String s) {
+        char[] sStack = new char[s.length()];
+        char[] mapping = new char[128];
+        mapping[')'] = '(';
+        mapping['}'] = '{';
+        mapping[']'] = '[';
+        int idx = 0;
+        for (char sChar : s.toCharArray()) {
+            if (mapping[sChar] == 0) {
+                // put open parentheses to the stack
+                sStack[idx++] = sChar;
+            } else {
+                // there are no open parentheses in the stack
+                if (idx == 0) {
+                    return false;
+                }
+                // top of the stack have different type of open parentheses
+                if (sStack[idx-1] != mapping[sChar]) {
+                    return false;
+                }
+                // move pointer to the top of stack -1
+                // this simulate pop operation in Stack
+                idx--;
+            }
+        }
+
+        return idx == 0;
     }
 }
