@@ -15,6 +15,20 @@ public class MarsExplorationTest {
     }
 
     private int marsExploration(String s) {
-        return 0;
+        int numOfDiffChar = 0;
+        int i = 0;
+        while (i < s.length()) {
+            if ('S' != s.charAt(i++)) {
+                numOfDiffChar++;
+            }
+            if ('O' != s.charAt(i++)) {
+                numOfDiffChar++;
+            }
+            if ('S' != s.charAt(i++)) {
+                numOfDiffChar++;
+            }
+        }
+
+        return numOfDiffChar;
     }
 }
