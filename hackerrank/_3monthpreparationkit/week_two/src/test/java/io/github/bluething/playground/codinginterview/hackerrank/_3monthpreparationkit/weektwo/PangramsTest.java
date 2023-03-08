@@ -16,6 +16,19 @@ public class PangramsTest {
     }
 
     private String pangrams(String s) {
-        return "";
+        char[] alphabet = new char[26];
+        s = s.toLowerCase();
+        for (char sChar : s.toCharArray()) {
+            if (sChar >= 97 && sChar <= 122 ) {
+                alphabet[sChar - 97]++;
+            }
+        }
+        for (int i = 0; i < alphabet.length; i++) {
+            if (alphabet[i] == 0) {
+                return "not pangram";
+            }
+        }
+
+        return "pangram";
     }
 }
