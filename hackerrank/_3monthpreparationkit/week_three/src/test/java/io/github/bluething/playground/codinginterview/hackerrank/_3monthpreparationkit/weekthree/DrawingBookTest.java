@@ -19,8 +19,32 @@ public class DrawingBookTest {
         Assertions.assertEquals(1, pageCount(6, 2));
     }
 
-    private int pageCount(int n, int p) {
-        // Write your code here
+    @Test
+    public void case04() {
+        Assertions.assertEquals(1, pageCount(6, 5));
+    }
 
+    private int pageCount(int n, int p) {
+        int numOfFlip = 0;
+        if (p <= n/2) {
+            for (int i = 1; i <= n/2; i += 2) {
+                if (p == i-1 || p == i) {
+                    break;
+                }
+                numOfFlip++;
+            }
+        } else {
+            if (n % 2 == 0) {
+                n += 1;
+            }
+            for (int i = n; i >= n/2; i -= 2) {
+                if (p == i-1 || p == i) {
+                    break;
+                }
+                numOfFlip++;
+            }
+        }
+
+        return numOfFlip;
     }
 }
