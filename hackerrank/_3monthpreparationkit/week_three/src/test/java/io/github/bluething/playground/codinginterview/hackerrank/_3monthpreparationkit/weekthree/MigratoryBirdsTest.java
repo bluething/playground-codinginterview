@@ -19,6 +19,20 @@ public class MigratoryBirdsTest {
     }
 
     private int migratoryBirds(List<Integer> arr) {
-        return 0;
+        int[] typeCount = new int[5];
+        for (Integer val : arr) {
+            typeCount[val-1]++;
+        }
+        int max = 0;
+        int typeId = 0;
+        for (int i = 0; i < typeCount.length; i++) {
+            if (typeCount[i] > max) {
+                max = typeCount[i];
+                typeId = i+1;
+            }
+        }
+
+
+        return typeId;
     }
 }
