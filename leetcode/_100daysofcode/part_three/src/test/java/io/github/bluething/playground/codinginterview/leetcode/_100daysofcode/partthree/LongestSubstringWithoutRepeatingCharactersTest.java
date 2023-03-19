@@ -36,6 +36,6 @@ public class LongestSubstringWithoutRepeatingCharactersTest {
     }
 
     private int lengthOfLongestSubstring(String s) {
-
+        return 0;
     }
 }
