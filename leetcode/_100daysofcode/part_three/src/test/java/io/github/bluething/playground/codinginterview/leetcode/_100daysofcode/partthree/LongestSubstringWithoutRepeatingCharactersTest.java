@@ -38,6 +38,36 @@ class LongestSubstringWithoutRepeatingCharactersTest {
         Assertions.assertEquals(3, lengthOfLongestSubstring("abccabcbb"));
     }
 
+    @Test
+    void case07() {
+        Assertions.assertEquals(3, lengthOfLongestSubstring2("abcabcbb"));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertEquals(1, lengthOfLongestSubstring2("bbbbb"));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertEquals(3, lengthOfLongestSubstring2("pwwkew"));
+    }
+
+    @Test
+    void case10() {
+        Assertions.assertEquals(0, lengthOfLongestSubstring2(""));
+    }
+
+    @Test
+    void case11() {
+        Assertions.assertEquals(4, lengthOfLongestSubstring2("dabcabcbb"));
+    }
+
+    @Test
+    void case12() {
+        Assertions.assertEquals(3, lengthOfLongestSubstring2("abccabcbb"));
+    }
+
     private int lengthOfLongestSubstring(String s) {
         int maxLength = 0;
         int length = 0;
@@ -55,6 +85,33 @@ class LongestSubstringWithoutRepeatingCharactersTest {
             }
             maxLength = Math.max(maxLength, length);
         }
+        return maxLength;
+    }
+
+    private int lengthOfLongestSubstring2(String s) {
+        int maxLength = 0;
+        int start = 0;
+        int end = 0;
+        char sChar = (char) 0;
+        Set<Character> uniqueChar = new HashSet<>();
+        while (end < s.length()) {
+            sChar = s.charAt(end);
+            if (uniqueChar.add(sChar)) {
+                maxLength = Math.max(end-start+1, maxLength);
+                end++;
+            } else {
+                // If we find duplicate char then
+                // We clean the uniqueChar set and move the start idx to the duplicate char
+                // as long as the set contain duplicate char remove the char pointed by start idx
+                // at the end of loop, start idx will point to the end idx
+                // start and end idx is a slide window
+                while (uniqueChar.contains(sChar)) {
+                    uniqueChar.remove(s.charAt(start));
+                    start++;
+                }
+            }
+        }
+
         return maxLength;
     }
 }
