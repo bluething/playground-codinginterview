@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // https://www.hackerrank.com/challenges/three-month-preparation-kit-sock-merchant/problem
 public class SalesByMatchTest {
@@ -19,6 +21,15 @@ public class SalesByMatchTest {
     }
 
     private int sockMerchant(int n, List<Integer> ar) {
-        return 0;
+        int numOfPair = 0;
+        Set<Integer> socks = new HashSet<>();
+        for (Integer val : ar) {
+            if (!socks.add(val)) {
+                numOfPair++;
+                socks.remove(val);
+            }
+        }
+
+        return numOfPair;
     }
 }
