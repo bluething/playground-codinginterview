@@ -3,8 +3,7 @@ package io.github.bluething.playground.codinginterview.hackerrank._3monthprepara
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 // https://www.hackerrank.com/challenges/three-month-preparation-kit-the-birthday-bar/problem
 public class SubarrayDivision2Test {
@@ -19,6 +18,23 @@ public class SubarrayDivision2Test {
     }
 
     private int birthday(List<Integer> s, int d, int m) {
-        return 0;
+        int numOfChoice = 0;
+        int sum = 0;
+        int i = 0;
+        int j = 0;
+        while (i+m <= s.size()) {
+            j = 0;
+            sum = 0;
+            while (j < m) {
+                sum += s.get(i + j);
+                j++;
+            }
+            if (sum == d) {
+                numOfChoice++;
+            }
+            i++;
+        }
+
+        return numOfChoice;
     }
 }
