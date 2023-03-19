@@ -3,9 +3,7 @@ package io.github.bluething.playground.codinginterview.hackerrank._3monthprepara
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 // https://www.hackerrank.com/challenges/three-month-preparation-kit-two-arrays/problem
 public class PermutingTwoArraysTest {
@@ -57,7 +55,16 @@ public class PermutingTwoArraysTest {
                 new LinkedList<Integer>(Arrays.asList(13, 34, 8, 27, 20, 33, 9, 22, 30, 37, 11, 11, 8, 26, 30, 9, 17, 12, 11, 16, 9, 13, 11, 12, 28, 28, 25, 30, 5, 31, 16, 31, 22, 10, 37, 18, 14, 6, 12, 36, 9, 26, 33, 23, 33))));
     }
 
+    // Just find the failed condition
+    // If the sum of the smallest and largest from 2 array less than k
     private String twoArrays(int k, List<Integer> A, List<Integer> B) {
-        return "";
+        Collections.sort(A, Comparator.naturalOrder());
+        Collections.sort(B, Comparator.reverseOrder());
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) + B.get(i) < k) {
+                return "NO";
+            }
+        }
+        return "YES";
     }
 }
