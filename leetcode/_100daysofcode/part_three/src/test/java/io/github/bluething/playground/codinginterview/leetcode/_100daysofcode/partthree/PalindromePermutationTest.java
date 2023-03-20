@@ -12,10 +12,22 @@ public class PalindromePermutationTest {
 
     @Test
     void case02() {
-        Assertions.assertTrue(canPermutePalindrome("abc"));
+        Assertions.assertFalse(canPermutePalindrome("abc"));
     }
 
+    // the palindrome happen when there are max 1 unique char
+    // can be 0 if the length of the string even
     private boolean canPermutePalindrome(String s) {
-        return false;
+        int[] freqChar = new int[128];
+        for (int i = 0; i < s.length(); i++) {
+            freqChar[s.charAt(i)]++;
+        }
+
+        int count = 0;
+        for (int i = 0; i < freqChar.length; i++) {
+            count += freqChar[i] %2;
+        }
+
+        return count <= 1;
     }
 }
