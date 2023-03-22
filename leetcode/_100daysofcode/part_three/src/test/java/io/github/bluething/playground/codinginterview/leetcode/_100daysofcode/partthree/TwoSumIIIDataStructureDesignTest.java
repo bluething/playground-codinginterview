@@ -60,6 +60,7 @@ public class TwoSumIIIDataStructureDesignTest {
         }
 
         public void add(int number) {
+            // need to mark if we add same number to the object
             valueCounter.put(number, valueCounter.getOrDefault(number, 0)+1);
         }
         public boolean find(int value) {
@@ -67,6 +68,8 @@ public class TwoSumIIIDataStructureDesignTest {
                 int pair = value - valueMap.getKey();
                 if ((pair == valueMap.getKey() && valueMap.getValue() > 1)
                         || (pair != valueMap.getKey() && valueCounter.get(pair) != null)) {
+                    // if the pair same with num, example value=6 and num=6
+                    // we need to know if we add the num twice (mark with value > 1)
                     return true;
                 }
             }
@@ -90,6 +93,7 @@ public class TwoSumIIIDataStructureDesignTest {
         }
 
         public void add(int number) {
+            // need to mark if we add same number to the object
             if (valueFlag.get(number) != null) {
                 valueFlag.put(number, true);
             } else {
@@ -110,7 +114,9 @@ public class TwoSumIIIDataStructureDesignTest {
                 if (valueFlag.get(pair) != null) {
                     if (pair != num) {
                         return true;
-                    } else if (valueFlag.get(pair)){
+                    } else if (valueFlag.get(pair)) {
+                        // if the pair same with num, example value=6 and num=6
+                        // we need to know if we add the num twice (mark with true)
                         return true;
                     }
                 }
