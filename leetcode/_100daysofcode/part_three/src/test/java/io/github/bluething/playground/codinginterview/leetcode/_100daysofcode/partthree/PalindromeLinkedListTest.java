@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 class PalindromeLinkedListTest {
 
     @Test
@@ -73,6 +75,18 @@ class PalindromeLinkedListTest {
     }
 
     private boolean isPalindrome2(ListNode head) {
+        Stack<Integer> vals = new Stack<>();
+        ListNode traverseHead = head;
+        while (traverseHead != null) {
+            vals.push(traverseHead.val);
+            traverseHead = traverseHead.next;
+        }
+        while (head != null) {
+            if (vals.pop() != head.val) {
+                return false;
+            }
+            head = head.next;
+        }
         return true;
     }
 
