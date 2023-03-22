@@ -41,6 +41,21 @@ class MergeTwo2DArraysBySummingValuesTest {
     }
 
     private int[][] mergeArrays(int[][] nums1, int[][] nums2) {
-        return null;
+        HashMap<Integer, Integer> numSums = new HashMap<>();
+        for (int[] nums : nums1) {
+            numSums.put(nums[0], nums[1]);
+        }
+        for (int[] nums : nums2) {
+            numSums.put(nums[0], numSums.getOrDefault(nums[0], 0) + nums[1]);
+        }
+
+        int[][] results = new int[numSums.size()][];
+        int idx = 0;
+        for (Map.Entry<Integer, Integer> numSum : numSums.entrySet()) {
+            results[idx++] = new int[]{numSum.getKey(), numSum.getValue()};
+        }
+
+        Arrays.sort(results, Comparator.comparingInt(o -> o[0]));
+        return results;
     }
 }
