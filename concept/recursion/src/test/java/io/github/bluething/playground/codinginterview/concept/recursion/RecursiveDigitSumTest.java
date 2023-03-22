@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.concept.recursion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+// https://www.hackerrank.com/challenges/recursive-digit-sum/problem
 class RecursiveDigitSumTest {
 
     @Test
@@ -58,6 +59,8 @@ class RecursiveDigitSumTest {
 
     private int superDigit2(String n, int k) {
         long sum = 0L;
+        // just add original input then multiply by k
+        // no need to append the string as much k
         for (int i = 0; i < n.length(); i++) {
             sum += Integer.valueOf(n.charAt(i) - 48);
         }
@@ -72,6 +75,9 @@ class RecursiveDigitSumTest {
         }
 
         long sum = 0L;
+        // actually we can view the question like this (not using string as an input)
+        // just add remainder of % 10 from n to the sum
+        // for the next iteration divide the n with 10
         while (n > 0) {
             sum += n % 10;
             n = n / 10;
