@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // https://aaronice.gitbook.io/lintcode/high_frequency/two-sum-iii-data-structure-design
 public class TwoSumIIIDataStructureDesignTest {
 
@@ -10,10 +13,10 @@ public class TwoSumIIIDataStructureDesignTest {
     void case01() {
         TwoSum twoSum = new TwoSum();
         twoSum.add(1);
-        twoSum.add(2);
+        twoSum.add(3);
         twoSum.add(5);
         Assertions.assertTrue(twoSum.find(4));
-        Assertions.assertFalse(twoSum.find(6));
+        Assertions.assertFalse(twoSum.find(7));
     }
 
     @Test
@@ -27,11 +30,26 @@ public class TwoSumIIIDataStructureDesignTest {
     }
 
     class TwoSum {
-        public void add(int number) {
 
+        private final HashMap<Integer, Integer> valueCounter;
+
+        TwoSum() {
+            valueCounter = new HashMap<>();
+        }
+
+        public void add(int number) {
+            valueCounter.put(number, valueCounter.getOrDefault(number, 0)+1);
         }
         public boolean find(int value) {
-            return true;
+            for (Map.Entry<Integer, Integer> valueMap : valueCounter.entrySet()) {
+                int pair = value - valueMap.getKey();
+                if ((pair == valueMap.getKey() && valueMap.getValue() > 1)
+                        || (pair != valueMap.getKey() && valueCounter.get(pair) != null)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
