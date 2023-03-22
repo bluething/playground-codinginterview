@@ -21,6 +21,22 @@ class RecursiveDigitSumTest {
     }
 
     private int superDigit(String n, int k) {
-        return 0;
+        StringBuilder nSum = new StringBuilder();
+        for (int i = 1; i <= k; i++) {
+            nSum.append(n);
+        }
+        return sumRecur(nSum.toString());
+    }
+
+    private int sumRecur(String n) {
+        if (n.length() == 1) {
+            return Integer.parseInt(String.valueOf(n.charAt(0)));
+        }
+        int sum = 0;
+        for (int i = 0; i < n.length(); i++) {
+            sum += Integer.parseInt(String.valueOf(n.charAt(i)));
+        }
+
+        return sumRecur(String.valueOf(sum));
     }
 }
