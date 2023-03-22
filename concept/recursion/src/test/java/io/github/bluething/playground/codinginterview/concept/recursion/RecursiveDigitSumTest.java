@@ -20,6 +20,22 @@ class RecursiveDigitSumTest {
         Assertions.assertEquals(9, superDigit("123", 3));
     }
 
+    @Test
+    void case04() {
+        Assertions.assertEquals(3, superDigit2("148", 3));
+    }
+
+    @Test
+    void case05() {
+        Assertions.assertEquals(8, superDigit2("9875", 4));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(9, superDigit2("123", 3));
+    }
+
+    // doesn't work with large input
     private int superDigit(String n, int k) {
         StringBuilder nSum = new StringBuilder();
         for (int i = 1; i <= k; i++) {
@@ -38,5 +54,29 @@ class RecursiveDigitSumTest {
         }
 
         return sumRecur(String.valueOf(sum));
+    }
+
+    private int superDigit2(String n, int k) {
+        long sum = 0L;
+        for (int i = 0; i < n.length(); i++) {
+            sum += Integer.valueOf(n.charAt(i) - 48);
+        }
+        sum *= k;
+
+        return sumRecur2(sum);
+    }
+
+    private int sumRecur2(long n) {
+        if (n < 10) {
+            return (int) n;
+        }
+
+        long sum = 0L;
+        while (n > 0) {
+            sum += n % 10;
+            n = n / 10;
+        }
+
+        return sumRecur2(sum);
     }
 }
