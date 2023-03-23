@@ -30,7 +30,15 @@ public class LinkedListCycleTest {
     }
 
     private boolean hasCycle(ListNode head) {
-        return true;
+        int visitedVal = Integer.MIN_VALUE;
+        while (head != null) {
+            if (head.val == visitedVal) {
+                return true;
+            }
+            head.val = visitedVal;
+            head = head.next;
+        }
+        return false;
     }
 
     class ListNode {
