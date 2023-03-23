@@ -18,10 +18,19 @@ class PowerOfThreeTest {
 
     @Test
     void case03() {
-        Assertions.assertTrue(isPowerOfThree(-1));
+        Assertions.assertFalse(isPowerOfThree(-1));
     }
 
     private boolean isPowerOfThree(int n) {
-        return false;
+        if (n < 1) {
+            return false;
+        }
+        if (n == 1) {
+            return true;
+        }
+        if (n%3 != 0) {
+            return false;
+        }
+        return isPowerOfThree(n/3);
     }
 }
