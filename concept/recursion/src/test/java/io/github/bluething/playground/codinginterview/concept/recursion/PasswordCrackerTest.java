@@ -24,30 +24,47 @@ class PasswordCrackerTest {
         Assertions.assertEquals("ab cd", passwordCracker(List.of("ab", "abcd", "cd"), "abcd"));
     }
 
-    private String passwordCracker(List<String> passwords, String loginAttempt) {
-        List<String> results = new ArrayList<>();
-        cracker(passwords, loginAttempt, results);
-
-        StringBuilder result = new StringBuilder();
-        for (String s : results) {
-            result.append(s).append(" ");
-        }
-
-        return results.size() == 0 ? "WRONG PASSWORD" : result.toString().trim();
+    @Test
+    void case04() {
+        Assertions.assertEquals("web adaman", passwordCracker(List.of("we", "web", "adaman", "barcod"), "webadaman"));
     }
 
-    private List<String> cracker(List<String> passwords, String loginAttempt, List<String> results) {
+    @Test
+    void case05() {
+        Assertions.assertEquals("we barcod web adaman web", passwordCracker(List.of("we", "web", "adaman", "barcod"), "webarcodwebadamanweb"));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals("WRONG PASSWORD", passwordCracker(List.of("bb", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaabbaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaabbaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaaaaaabaaaaaaaaaaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+    }
+
+    private String passwordCracker(List<String> passwords, String loginAttempt) {
+        List<String> wordInPass = new ArrayList<>();
+        if (isCracked(passwords, loginAttempt, wordInPass)) {
+            StringBuilder result = new StringBuilder();
+            for (String s : wordInPass) {
+                result.append(s).append(" ");
+            }
+
+            return result.toString().trim();
+        }
+
+        return "WRONG PASSWORD";
+    }
+
+    private boolean isCracked(List<String> passwords, String loginAttempt, List<String> wordInPass) {
         if (loginAttempt.length() == 0) {
-            return results;
+            return true;
         }
 
         for (String password : passwords) {
             if (loginAttempt.indexOf(password, 0) == 0) {
-                results.add(password);
-                return cracker(passwords, loginAttempt.substring(password.length()), results);
+                wordInPass.add(password);
+                return isCracked(passwords, loginAttempt.substring(password.length()), wordInPass);
             }
         }
 
-        return cracker(passwords, "", results);
+        return false;
     }
 }
