@@ -13,7 +13,7 @@ class PowerOfThreeTest {
 
     @Test
     void case02() {
-        Assertions.assertTrue(isPowerOfThree(0));
+        Assertions.assertFalse(isPowerOfThree(0));
     }
 
     @Test
