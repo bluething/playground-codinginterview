@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+
 // https://leetcode.com/problems/top-k-frequent-elements/
 class TopKFrequentElementsTest {
 
@@ -17,6 +19,34 @@ class TopKFrequentElementsTest {
     }
 
     private int[] topKFrequent(int[] nums, int k) {
-        return null;
+        Map<Integer, Integer> numFreq = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            numFreq.put(nums[i], numFreq.getOrDefault(nums[i], 0) + 1);
+        }
+
+        // using array of list integer as a bucket
+        // the index naturally sort the bucket asc (start from 0 until number of nums)
+        // we map from numFreq<num, freq> into bucket, freq->idx, num->list member
+        List<Integer>[] buckets = new ArrayList[nums.length+1];
+        for (int num : numFreq.keySet()) {
+            int freq = numFreq.get(num);
+            if (buckets[freq] == null) {
+                buckets[freq] = new ArrayList<>();
+            }
+            buckets[freq].add(num);
+        }
+
+        // just iterate from the last bucket to get n highest freq
+        List<Integer> results = new ArrayList<>();
+        for (int i = buckets.length-1; i >= 0; i--) {
+            if (buckets[i] != null) {
+                results.addAll(buckets[i]);
+                if (results.size() == k) {
+                    break;
+                }
+            }
+        }
+
+        return results.stream().mapToInt(i -> i).toArray();
     }
 }
