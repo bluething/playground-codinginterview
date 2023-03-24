@@ -18,6 +18,16 @@ class TopKFrequentElementsTest {
         Assertions.assertArrayEquals(new int[]{1}, topKFrequent(new int[]{1}, 1));
     }
 
+    @Test
+    void case03() {
+        Assertions.assertArrayEquals(new int[]{1,2}, topKFrequent2(new int[]{1,1,1,2,2,3}, 2));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertArrayEquals(new int[]{1}, topKFrequent2(new int[]{1}, 1));
+    }
+
     private int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> numFreq = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
@@ -45,6 +55,26 @@ class TopKFrequentElementsTest {
                     break;
                 }
             }
+        }
+
+        return results.stream().mapToInt(i -> i).toArray();
+    }
+
+    private int[] topKFrequent2(int[] nums, int k) {
+        Map<Integer, Integer> numFreq = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            numFreq.put(nums[i], numFreq.getOrDefault(nums[i], 0) + 1);
+        }
+
+        Queue<Map.Entry<Integer, Integer>> maxHeap = new PriorityQueue<>((a,b) -> (b.getValue()-a.getValue()));
+        for (Map.Entry<Integer, Integer> entry : numFreq.entrySet()) {
+            maxHeap.add(entry);
+        }
+
+        List<Integer> results = new ArrayList<>();
+        while (results.size() < k) {
+            Map.Entry<Integer, Integer> entry = maxHeap.poll();
+            results.add(entry.getKey());
         }
 
         return results.stream().mapToInt(i -> i).toArray();
