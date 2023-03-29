@@ -3,10 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // https://leetcode.com/problems/3sum/
 class ThreeSumTest {
@@ -87,6 +84,29 @@ class ThreeSumTest {
     // slow
     private List<List<Integer>> threeSum2(int[] nums) {
         List<List<Integer>> triplets = new ArrayList<>();
+        Arrays.sort(nums);
+        int i = 0;
+        int j,k;
+        Set<List<Integer>> uniqueTriplet = new HashSet<>();
+        while (i < nums.length-1) {
+            j = i+1;
+            k = nums.length-1;
+            while (j < k) {
+                if (nums[i] + nums[j] + nums[k] == 0) {
+                    if (uniqueTriplet.add(List.of(nums[i], nums[j], nums[k]))) {
+                        triplets.add(List.of(nums[i], nums[j], nums[k]));
+                    }
+                    j++;
+                    k--;
+                } else if (nums[i] + nums[j] + nums[k] < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+            i++;
+        }
+
         return triplets;
     }
 }
