@@ -51,10 +51,40 @@ class ThreeSumTest {
 
     private List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> triplets = new ArrayList<>();
+        Arrays.sort(nums);
+        int i = 0;
+        int j,k;
+        while (i < nums.length-1) {
+            if (i > 0 && nums[i-1] == nums[i]) {
+                i++;
+                continue;
+            }
+            j= i+1;
+            k = nums.length - 1;
+            while (j < k) {
+                if (nums[i] + nums[j] + nums[k] == 0) {
+                    triplets.add(List.of(nums[i], nums[j], nums[k]));
+                    j++;
+                    k--;
+                    while (j < k  && nums[j-1] == nums[j]) {
+                        j++;
+                    }
+                    while (j < k && nums[k] == nums[k+1]) {
+                        k--;
+                    }
+                } else if (nums[i] + nums[j] + nums[k] < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+            i++;
+        }
+
         return triplets;
     }
 
-    // fastest
+    // slow
     private List<List<Integer>> threeSum2(int[] nums) {
         List<List<Integer>> triplets = new ArrayList<>();
         return triplets;
