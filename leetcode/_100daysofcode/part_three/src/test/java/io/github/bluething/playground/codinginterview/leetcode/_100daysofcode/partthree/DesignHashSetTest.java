@@ -18,7 +18,7 @@ class DesignHashSetTest {
         }
 
         public boolean contains(int key) {
-
+            return false;
         }
     }
 }
