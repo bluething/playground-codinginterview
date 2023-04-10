@@ -19,8 +19,8 @@ class ConvertBinaryNumberInALinkedListToIntegerTest {
         Assertions.assertEquals(0, getDecimalValue(node));
     }
 
-    // analogy, convert 1-2-3-4 to decimal
-    // step 1 -> 1 = 1
+    // analogy, convert 1-2-3-4 to decimal, let say we have ans=0
+    // step 1 -> ans*10^1 + 1 = 1
     // step 2 - > 1*10 + 2 = 12
     // step 3 -> 12*10 + 3 = 123
     // step 4 -> 123*10 + 4 = 1234
