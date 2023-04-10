@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 class ConvertBinaryNumberInALinkedListToIntegerTest {
     @Test
     void case01() {
-        ListNode node3 = new ListNode(3);
-        ListNode node2 = new ListNode(2, node3);
+        ListNode node3 = new ListNode(1);
+        ListNode node2 = new ListNode(0, node3);
         ListNode node1 = new ListNode(1, node2);
         Assertions.assertEquals(5, getDecimalValue(node1));
     }
@@ -19,8 +19,24 @@ class ConvertBinaryNumberInALinkedListToIntegerTest {
         Assertions.assertEquals(0, getDecimalValue(node));
     }
 
+    // analogy, convert 1-2-3-4 to decimal
+    // step 1 -> 1 = 1
+    // step 2 - > 1*10 + 2 = 12
+    // step 3 -> 12*10 + 3 = 123
+    // step 4 -> 123*10 + 4 = 1234
+    // in decimal, we multiply by 2
+    // 1-0-1, let say we have ans=0
+    // step 1 -> 1 (ans*2^1) + 1 = 1
+    // step 2 -> ans*2^1 (1*2^1) + 0 = 2
+    // step 3 -> ans*2^1 + 1 = 5
+    // digit << 1 == digit * 2^1
     private int getDecimalValue(ListNode head) {
-        return 0;
+        int ans = 0;
+        while (head != null) {
+            ans = (ans << 1) + head.val;
+            head = head.next;
+        }
+        return ans;
     }
 
     class ListNode {
