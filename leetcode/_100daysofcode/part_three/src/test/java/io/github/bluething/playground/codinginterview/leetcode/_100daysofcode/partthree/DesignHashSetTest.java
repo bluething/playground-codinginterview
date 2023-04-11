@@ -1,5 +1,7 @@
 package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.partthree;
 
+import java.util.LinkedList;
+
 // https://leetcode.com/problems/design-hashset/
 class DesignHashSetTest {
 
@@ -89,6 +91,53 @@ class DesignHashSetTest {
                 } else {
                     tmp = tmp.next;
                 }
+            }
+
+            return false;
+        }
+    }
+
+    class MyHashSet3 {
+
+        private final int bucketSize = 10;
+        private LinkedList<Integer>[] buckets;
+
+        public MyHashSet3() {
+            buckets = new LinkedList[bucketSize];
+        }
+
+        private int getBucket(int key) {
+            return key % bucketSize;
+        }
+
+        public void add(int key) {
+            if (!contains(key)) {
+                int bucketId = getBucket(key);
+                if (buckets[bucketId] == null) {
+                    LinkedList<Integer> bucket = new LinkedList<>();
+                    bucket.addLast(key);
+                    buckets[bucketId] = bucket;
+                } else {
+                    buckets[bucketId].addLast(key);
+                }
+            }
+        }
+
+        public void remove(int key) {
+            int bucketId = getBucket(key);
+            if (buckets[bucketId] != null) {
+                buckets[bucketId].removeFirstOccurrence(key);
+            }
+        }
+
+        public boolean contains(int key) {
+            int bucketId = getBucket(key);
+            if (buckets[bucketId] != null) {
+                if (buckets[bucketId].contains(key)) {
+                    return true;
+                }
+
+                return false;
             }
 
             return false;
