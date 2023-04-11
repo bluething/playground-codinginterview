@@ -47,6 +47,7 @@ class ReorderListTest extends ParentTest {
         }
 
         // reverse second half
+        // 1-2-3-4 -> 1-2-4-3
         ListNode secondHalf = slow.next;
         slow.next = null;
         ListNode prev = null;
@@ -59,7 +60,10 @@ class ReorderListTest extends ParentTest {
         }
         secondHalf = prev;
 
-        // merge first half and second half
+        // merge first half (head) and second half
+        // merge 1-2 and 4-3
+        // 1-4
+        // 1-4-2-3
         ListNode firstHalf = head;
         ListNode tmp = null;
         while (firstHalf != null && secondHalf != null) {
