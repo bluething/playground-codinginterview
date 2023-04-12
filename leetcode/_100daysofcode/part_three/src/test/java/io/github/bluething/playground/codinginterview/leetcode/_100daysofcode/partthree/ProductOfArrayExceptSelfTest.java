@@ -12,11 +12,22 @@ class ProductOfArrayExceptSelfTest {
     }
 
     @Test
-    void case01() {
+    void case02() {
         Assertions.assertArrayEquals(new int[]{0,0,9,0,0}, productExceptSelf(new int[]{-1,1,0,-3,3}));
     }
 
     private int[] productExceptSelf(int[] nums) {
-        return null;
+        int[] answer = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int result = 1;
+            for (int j = 0; j < nums.length; j++) {
+                if (i == j) {
+                    continue;
+                }
+                result *= nums[j];
+            }
+            answer[i] = result;
+        }
+        return answer;
     }
 }
