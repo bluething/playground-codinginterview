@@ -54,6 +54,9 @@ class ProductOfArrayExceptSelfTest {
         return answer;
     }
 
+    // 1-2-3-4
+    // prefix
+    // suffix
     private int[] productExceptSelf2(int[] nums) {
         int[] prefix = new int[nums.length];
         prefix[0] = 1;
@@ -73,17 +76,23 @@ class ProductOfArrayExceptSelfTest {
         return answer;
     }
 
+    // the key is prefix * postfix
+    // but we use only 1 array
+    // put prefix result first
+    // then calculate the postfix and multiply by the prefix
     private int[] productExceptSelf3(int[] nums) {
         int[] answer = new int[nums.length];
-        int current = 1;
+        // prefix
+        int prefix = 1;
         for (int i = 0; i < nums.length; i++) {
-            answer[i] = current;
-            current *= nums[i];
+            answer[i] = prefix;
+            prefix *= nums[i];
         }
-        current = 1;
+        // postfix
+        int postfix = 1;
         for (int i = nums.length-1; i >= 0; i--) {
-            answer[i] *= current;
-            current *= nums[i];
+            answer[i] *= postfix;
+            postfix *= nums[i];
         }
 
         return answer;
