@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 // https://leetcode.com/problems/product-of-array-except-self/
 // https://www.youtube.com/watch?v=bNvIQI2wAjk
 class ProductOfArrayExceptSelfTest {
@@ -25,6 +27,16 @@ class ProductOfArrayExceptSelfTest {
     @Test
     void case04() {
         Assertions.assertArrayEquals(new int[]{0,0,9,0,0}, productExceptSelf2(new int[]{-1,1,0,-3,3}));
+    }
+
+    @Test
+    void case05() {
+        Assertions.assertArrayEquals(new int[]{24,12,8,6}, productExceptSelf3(new int[]{1,2,3,4}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertArrayEquals(new int[]{0,0,9,0,0}, productExceptSelf3(new int[]{-1,1,0,-3,3}));
     }
 
     private int[] productExceptSelf(int[] nums) {
@@ -58,6 +70,22 @@ class ProductOfArrayExceptSelfTest {
         for (int i = 0; i < answer.length; i++) {
             answer[i] = prefix[i] * suffix[i];
         }
+        return answer;
+    }
+
+    private int[] productExceptSelf3(int[] nums) {
+        int[] answer = new int[nums.length];
+        int current = 1;
+        for (int i = 0; i < nums.length; i++) {
+            answer[i] = current;
+            current *= nums[i];
+        }
+        current = 1;
+        for (int i = nums.length-1; i >= 0; i--) {
+            answer[i] *= current;
+            current *= nums[i];
+        }
+
         return answer;
     }
 }
