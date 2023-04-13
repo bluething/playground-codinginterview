@@ -22,6 +22,26 @@ class ReverseOnlyLettersTest {
     }
 
     private String reverseOnlyLetters(String s) {
-        return "";
+        char[] sChar = s.toCharArray();
+        int i = 0;
+        int j = s.length()-1;
+        char temp = '0';
+        while (i < j) {
+            if (Character.isLetter(s.charAt(i)) && Character.isLetter(s.charAt(j))) {
+                temp = s.charAt(i);
+                sChar[i] = s.charAt(j);
+                sChar[j] = temp;
+                i++;
+                j--;
+            } else {
+                if (!Character.isLetter(s.charAt(i))) {
+                    i++;
+                }
+                if (!Character.isLetter(s.charAt(j))) {
+                    j--;
+                }
+            }
+        }
+        return new String(sChar);
     }
 }
