@@ -30,6 +30,7 @@ class SubstringsOfSizeThreeWithDistinctCharactersTest {
             // we must check if the 1st position hava 2 freq
             // if yes, decrement by 1
             // we don't allow inside the window have freq=2 (repeat)
+            // decrement the freq of 1st position, so for the next loop the window size become 3
             if (i >= 3) {
                 if (freq[s.charAt(i-3)] == 2) {
                     repeat--;
