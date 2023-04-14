@@ -39,6 +39,21 @@ class LongestNiceSubstringTest {
         Assertions.assertEquals("", longestNiceSubstring2("C"));
     }
 
+    @Test
+    void case07() {
+        Assertions.assertEquals("aAa", longestNiceSubstring3("YazaAay"));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertEquals("Bb", longestNiceSubstring3("Bb"));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertEquals("", longestNiceSubstring3("C"));
+    }
+
     private String longestNiceSubstring(String s) {
         String result = "";
         for (int i = 0; i < s.length(); i++) {
@@ -97,5 +112,27 @@ class LongestNiceSubstringTest {
         }
 
         return sUnique;
+    }
+
+    // get unique char for each substring
+    // if the substring have unpair upper and lower
+    //// divide into 2 parts and recursively repeat the process
+    // at the end of the loop we will have substring that have upper-lower pair
+    // s1 always won because we want to have 1st longest substring
+    private String longestNiceSubstring3(String s) {
+        Set<Character> sUnique = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            sUnique.add(s.charAt(i));
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (sUnique.contains(Character.toUpperCase(s.charAt(i))) &&
+                    sUnique.contains(Character.toLowerCase(s.charAt(i)))) {
+                continue;
+            }
+            String s1 = longestNiceSubstring3(s.substring(0, i));
+            String s2 = longestNiceSubstring3(s.substring(i+1));
+            return s1.length()>= s2.length() ? s1 : s2;
+        }
+        return s;
     }
 }
