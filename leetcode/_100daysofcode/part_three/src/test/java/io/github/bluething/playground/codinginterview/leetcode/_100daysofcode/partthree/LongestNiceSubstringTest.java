@@ -24,6 +24,21 @@ class LongestNiceSubstringTest {
         Assertions.assertEquals("", longestNiceSubstring("C"));
     }
 
+    @Test
+    void case04() {
+        Assertions.assertEquals("aAa", longestNiceSubstring2("YazaAay"));
+    }
+
+    @Test
+    void case05() {
+        Assertions.assertEquals("Bb", longestNiceSubstring2("Bb"));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals("", longestNiceSubstring2("C"));
+    }
+
     private String longestNiceSubstring(String s) {
         String result = "";
         for (int i = 0; i < s.length(); i++) {
@@ -52,5 +67,35 @@ class LongestNiceSubstringTest {
         }
 
         return true;
+    }
+
+    private String longestNiceSubstring2(String s) {
+        int[] idx = longestNiceSubstring2(s, 0, s.length());
+        return s.substring(idx[0], idx[1]);
+    }
+
+    private int[] longestNiceSubstring2(String s, int left, int right) {
+        Set<Character> sUnique = toCharSet(s, left, right);
+        for (int i=left; i < right; i++) {
+            if (!sUnique.contains(Character.toUpperCase(s.charAt(i)))
+            || !sUnique.contains(Character.toLowerCase(s.charAt(i)))) {
+                int[] prefix = longestNiceSubstring2(s, left, i);
+                int[] suffix = longestNiceSubstring2(s, i+1, right);
+                return prefix[1] - prefix[0] >= suffix[1] - suffix[0]
+                        ? prefix
+                        : suffix;
+            }
+        }
+
+        return new int[] {left, right};
+    }
+
+    private Set<Character> toCharSet(String s, int left, int right) {
+        Set<Character> sUnique = new HashSet<>();
+        for (int i=left; i < right; i++) {
+            sUnique.add(s.charAt(i));
+        }
+
+        return sUnique;
     }
 }
