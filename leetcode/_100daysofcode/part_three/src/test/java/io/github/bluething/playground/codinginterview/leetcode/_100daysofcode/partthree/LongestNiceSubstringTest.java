@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // https://leetcode.com/problems/longest-nice-substring/
 class LongestNiceSubstringTest {
 
@@ -22,6 +25,32 @@ class LongestNiceSubstringTest {
     }
 
     private String longestNiceSubstring(String s) {
-        return "";
+        String result = "";
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i+1; j <= s.length(); j++) {
+                String tmp = s.substring(i,j);
+                if (tmp.length() > 1
+                && result.length() < tmp.length()
+                && isNiceString(tmp)) {
+                    result = tmp;
+                }
+            }
+        }
+        return result;
+    }
+    // get all unique char
+    // in the set we must hava upper and lower pair for each char
+    private boolean isNiceString(String s) {
+        Set<Character> sUnique = new HashSet<>();
+        for (char sChar : s.toCharArray()) {
+            sUnique.add(sChar);
+        }
+        for (char sChar : sUnique) {
+            if (sUnique.contains(Character.toUpperCase(sChar)) != sUnique.contains(Character.toLowerCase(sChar))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
