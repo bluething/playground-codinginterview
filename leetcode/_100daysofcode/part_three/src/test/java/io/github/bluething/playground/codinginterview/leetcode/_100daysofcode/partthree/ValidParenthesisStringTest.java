@@ -23,6 +23,26 @@ class ValidParenthesisStringTest {
         Assertions.assertTrue(checkValidString("(*))"));
     }
 
+    @Test
+    void case04() {
+        Assertions.assertTrue(checkValidString2("()"));
+    }
+
+    @Test
+    void case05() {
+        Assertions.assertTrue(checkValidString2("(*)"));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertTrue(checkValidString2("(*))"));
+    }
+
+    @Test
+    void case07() {
+        Assertions.assertFalse(checkValidString2("(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())"));
+    }
+
     // push open to stack
     // find close bracket
     //// pop open stack if not empty, case ()
@@ -58,5 +78,40 @@ class ValidParenthesisStringTest {
         }
 
         return open.isEmpty();
+    }
+
+    // scan left to right to check if we have pair (* and ), * as (
+    //// return true if all ( and * have paired with )
+    // scan right to left to check if we have pair *) and (, * as )
+    //// not all *) must be paired with ), * as empty
+    // for each scan we must check if we have enough open/close bracket
+    private boolean checkValidString2(String s) {
+        int openCount = 0;
+        for (int i = 0; i<s.length(); i++) {
+            if (s.charAt(i) == '(' || s.charAt(i) == '*') {
+                openCount++;
+            } else {
+                openCount--;
+            }
+            if (openCount < 0) {
+                return false;
+            }
+        }
+        if (openCount == 0) {
+            return true;
+        }
+
+        int closeCount = 0;
+        for (int i = s.length()-1; i >= 0; i--) {
+            if (s.charAt(i) == ')' || s.charAt(i) == '*') {
+                closeCount++;
+            } else {
+                closeCount--;
+            }
+            if (closeCount < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
