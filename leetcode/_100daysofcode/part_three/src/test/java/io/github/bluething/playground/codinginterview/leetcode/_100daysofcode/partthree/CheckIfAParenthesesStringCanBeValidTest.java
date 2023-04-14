@@ -26,6 +26,10 @@ class CheckIfAParenthesesStringCanBeValidTest {
         Assertions.assertFalse(canBeValid("))((", "0011"));
     }
 
+    // scan left to right
+    //// check if we have too many fixed close brackets
+    // scan right to left
+    //// check if we have too many fixed open brackets
     private boolean canBeValid(String s, String locked) {
         if (s.length() % 2 != 0) {
             return false;
