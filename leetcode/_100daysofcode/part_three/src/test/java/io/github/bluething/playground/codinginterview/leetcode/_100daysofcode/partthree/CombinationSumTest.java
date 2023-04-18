@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,23 @@ class CombinationSumTest {
     }
 
     private List<List<Integer>> combinationSum(int[] candidates, int target) {
-        return null;
+        List<List<Integer>> results = new ArrayList<>();
+        backtrack(results, new ArrayList<>(), candidates, 0, target, 0);
+        return results;
+    }
+
+    private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] candidates, int total, int target, int idx) {
+        if (total == target) {
+            results.add(new ArrayList<>(temp));
+            return;
+        }
+        if (idx >= candidates.length || total > target) {
+            return;
+        }
+
+        temp.add(candidates[idx]);
+        backtrack(results, temp, candidates, total+candidates[idx], target, idx);
+        temp.remove(temp.size()-1);
+        backtrack(results, temp, candidates, total, target, idx+1);
     }
 }
