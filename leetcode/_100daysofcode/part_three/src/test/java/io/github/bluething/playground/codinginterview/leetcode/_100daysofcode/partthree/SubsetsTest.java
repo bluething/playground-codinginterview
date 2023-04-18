@@ -46,6 +46,24 @@ class SubsetsTest {
                 Arrays.asList(0)), subsets2(new int[]{0}));
     }
 
+    @Test
+    void case05() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1,2,3),
+                Arrays.asList(1,2),
+                Arrays.asList(1,3),
+                Arrays.asList(1),
+                Arrays.asList(2,3),
+                Arrays.asList(2),
+                Arrays.asList(3),
+                Arrays.asList()), subsets3(new int[]{1,2,3}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(0),
+                Arrays.asList()), subsets3(new int[]{0}));
+    }
+
     // for each num
     //// start from 0 as much as current size
     ////// for each
@@ -80,5 +98,31 @@ class SubsetsTest {
             backtrack(result, temp, nums, i+1);
             temp.remove(temp.size()-1);
         }
+    }
+
+    private List<List<Integer>> subsets3(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> results = new ArrayList<>();
+        backtrackPickNoPick(results, new ArrayList<>(), nums, 0);
+        return results;
+    }
+
+    // pick and not pick
+    // start from 1st idx, we have 2 options to include and not include the value (left and right node)
+    // for each option, move to the next idx recursively (we have same option for each left and right node)
+    // for case not include, wee need to remove the last temp because we don't want to include the value (move to right node)
+    private void backtrackPickNoPick(List<List<Integer>> result, List<Integer> temp, int[] nums, int idx) {
+        if (idx >= nums.length) {
+            result.add(new ArrayList<>(temp));
+            return;
+        }
+
+        // include nums[idx]
+        temp.add(nums[idx]);
+        backtrackPickNoPick(result, temp, nums, idx+1);
+
+        // not include nums[idx]
+        temp.remove(temp.size()-1);
+        backtrackPickNoPick(result, temp, nums, idx+1);
     }
 }
