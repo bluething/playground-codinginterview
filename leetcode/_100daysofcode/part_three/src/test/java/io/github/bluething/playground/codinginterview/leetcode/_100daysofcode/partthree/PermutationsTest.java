@@ -31,6 +31,27 @@ class PermutationsTest {
         Assertions.assertEquals(Arrays.asList(Arrays.asList(1)), permute(new int[]{1}));
     }
 
+    @Test
+    void case04() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1,2,3),
+                Arrays.asList(1,3,2),
+                Arrays.asList(2,1,3),
+                Arrays.asList(2,3,1),
+                Arrays.asList(3,1,2),
+                Arrays.asList(3,2,1)), permute2(new int[]{1,2,3}));
+    }
+
+    @Test
+    void case05() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(0,1),
+                Arrays.asList(1,0)), permute2(new int[]{0,1}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1)), permute2(new int[]{1}));
+    }
+
     private List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> results = new ArrayList<>();
         backtrack(results, new ArrayList<>(), nums, new boolean[nums.length]);
@@ -51,6 +72,28 @@ class PermutationsTest {
                 backtrack(results, temp, nums, isUsed);
                 temp.remove(temp.size()-1);
                 isUsed[i] = false;
+            }
+        }
+    }
+
+    private List<List<Integer>> permute2(int[] nums) {
+        List<List<Integer>> results = new ArrayList<>();
+        backtrack(results, new ArrayList<>(), nums);
+        return results;
+    }
+
+    private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums) {
+        if (temp.size() == nums.length) {
+            results.add(new ArrayList<>(temp));
+            return;
+        } else {
+            for (int i=0; i < nums.length; i++) {
+                if (temp.contains(nums[i])) {
+                    continue;
+                }
+                temp.add(nums[i]);
+                backtrack(results, temp, nums);
+                temp.remove(temp.size()-1);
             }
         }
     }
