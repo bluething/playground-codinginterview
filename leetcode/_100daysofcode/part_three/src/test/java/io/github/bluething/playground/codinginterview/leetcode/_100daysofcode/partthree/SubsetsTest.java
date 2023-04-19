@@ -120,9 +120,9 @@ class SubsetsTest {
         // include nums[idx]
         temp.add(nums[idx]);
         backtrackPickNoPick(result, temp, nums, idx+1);
+        temp.remove(temp.size()-1);
 
         // not include nums[idx]
-        temp.remove(temp.size()-1);
         backtrackPickNoPick(result, temp, nums, idx+1);
     }
 }

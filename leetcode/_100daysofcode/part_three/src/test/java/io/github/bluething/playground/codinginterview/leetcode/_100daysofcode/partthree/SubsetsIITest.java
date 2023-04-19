@@ -43,8 +43,8 @@ class SubsetsIITest {
 
         temp.add(nums[idx]);
         backtrack(results, temp, nums, idx+1);
-
         temp.remove(temp.size()-1);
+
         while (idx+1 < nums.length && nums[idx] == nums[idx+1]) {
             idx++;
         }
