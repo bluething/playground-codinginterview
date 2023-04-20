@@ -3,9 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 // https://leetcode.com/problems/permutations-ii/
 class PermutationsIITest {
@@ -25,6 +23,23 @@ class PermutationsIITest {
         Assertions.assertEquals(Arrays.asList(Arrays.asList(1,1,2),
                 Arrays.asList(1,2,1),
                 Arrays.asList(2,1,1)), permuteUnique(new int[]{1,1,2}));
+    }
+
+    @Test
+    void case03() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1,2,3),
+                Arrays.asList(1,3,2),
+                Arrays.asList(2,1,3),
+                Arrays.asList(2,3,1),
+                Arrays.asList(3,1,2),
+                Arrays.asList(3,2,1)), permuteUnique2(new int[]{1,2,3}));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1,1,2),
+                Arrays.asList(1,2,1),
+                Arrays.asList(2,1,1)), permuteUnique2(new int[]{1,1,2}));
     }
 
     private List<List<Integer>> permuteUnique(int[] nums) {
@@ -51,6 +66,35 @@ class PermutationsIITest {
                 isUsed[i] = false;
                 prev = nums[i];
             }
+        }
+    }
+
+    private List<List<Integer>> permuteUnique2(int[] nums) {
+        Map<Integer, Integer> quotas = new HashMap<>();
+        for (int num : nums) {
+            quotas.put(num, quotas.getOrDefault(num,0) + 1);
+        }
+        List<List<Integer>> results = new ArrayList<>();
+        backtrack(results, new ArrayList<>(), nums, quotas);
+        return results;
+    }
+
+    private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums, Map<Integer, Integer> quotas) {
+        if (temp.size() == nums.length) {
+            results.add(new ArrayList<>(temp));
+            return;
+        }
+        for (Map.Entry<Integer, Integer> entry : quotas.entrySet()) {
+            int num = entry.getKey();
+            int quota = entry.getValue();
+            if (quota == 0) {
+                continue;
+            }
+            temp.add(num);
+            quotas.put(num, quota-1);
+            backtrack(results, temp, nums, quotas);
+            temp.remove(temp.size()-1);
+            quotas.put(num, quota);
         }
     }
 }
