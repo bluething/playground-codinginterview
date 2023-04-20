@@ -37,6 +37,10 @@ class RemoveNthNodeFromEndOfListTest extends ParentTest {
     }
 
     void printLinkedList(ListNode head) {
+        if (head == null) {
+            System.out.printf("");
+            return;
+        }
         while (head != null) {
             System.out.printf("%d", head.val);
             head = head.next;
@@ -44,7 +48,20 @@ class RemoveNthNodeFromEndOfListTest extends ParentTest {
     }
 
     private ListNode removeNthFromEnd(ListNode head, int n) {
-        return head;
+        ListNode dummy = new ListNode(0, head);
+        ListNode left = dummy;
+        ListNode right = head;
+        while (n > 0) {
+            right = right.next;
+            n--;
+        }
+        while (right != null) {
+            left = left.next;
+            right = right.next;
+        }
+        left.next = left.next.next;
+
+        return dummy.next;
     }
 
     class ListNode {
