@@ -58,6 +58,11 @@ class PermutationsTest {
         return results;
     }
 
+    // in permutation we need to know if we have used the value
+    // for each unused value
+    //// add the node and mark as used
+    //// go deep until all value is used
+    //// backtrack and mark as unused
     private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums, boolean[] isUsed) {
         if (temp.size() == nums.length) {
             results.add(new ArrayList<>(temp));

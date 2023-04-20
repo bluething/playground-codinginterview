@@ -49,6 +49,14 @@ class PermutationsIITest {
         return results;
     }
 
+    // in permutation we need to know if we have used the value
+    // for each unused and unique value
+    //// add the node and mark the position become used
+    //// go deep until all value is use
+    //// backtrack and mark the position become unused
+    //// don't forget to keep the prev (sibling) value
+    //// for each sibling we don't allow the duplicate
+    ////// this will ensure the result don't contain duplicate combination
     private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums, boolean[] isUsed) {
         if (temp.size() == nums.length) {
             results.add(new ArrayList<>(temp));
@@ -79,6 +87,8 @@ class PermutationsIITest {
         return results;
     }
 
+    // built decision tree based on quotas key
+    // for each path we reduce the quota
     private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums, Map<Integer, Integer> quotas) {
         if (temp.size() == nums.length) {
             results.add(new ArrayList<>(temp));
@@ -90,9 +100,13 @@ class PermutationsIITest {
             if (quota == 0) {
                 continue;
             }
+
+            // add current node
             temp.add(num);
+            // go deep, reduce the quota
             quotas.put(num, quota-1);
             backtrack(results, temp, nums, quotas);
+            // backtrack, need to restore the quota
             temp.remove(temp.size()-1);
             quotas.put(num, quota);
         }
