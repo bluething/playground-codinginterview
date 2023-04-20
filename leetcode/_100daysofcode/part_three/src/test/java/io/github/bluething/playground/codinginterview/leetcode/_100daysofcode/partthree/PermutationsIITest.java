@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,29 @@ class PermutationsIITest {
     }
 
     private List<List<Integer>> permuteUnique(int[] nums) {
-        return null;
+        Arrays.sort(nums);
+        List<List<Integer>> results = new ArrayList<>();
+        backtrack(results, new ArrayList<>(), nums, new boolean[nums.length]);
+        return results;
+    }
+
+    private void backtrack(List<List<Integer>> results, List<Integer> temp, int[] nums, boolean[] isUsed) {
+        if (temp.size() == nums.length) {
+            results.add(new ArrayList<>(temp));
+            return;
+        } else {
+            int prev = -11;
+            for (int i=0; i < isUsed.length; i++) {
+                if (isUsed[i] || nums[i] == prev) {
+                    continue;
+                }
+                temp.add(nums[i]);
+                isUsed[i] = true;
+                backtrack(results, temp, nums, isUsed);
+                temp.remove(temp.size()-1);
+                isUsed[i] = false;
+                prev = nums[i];
+            }
+        }
     }
 }
