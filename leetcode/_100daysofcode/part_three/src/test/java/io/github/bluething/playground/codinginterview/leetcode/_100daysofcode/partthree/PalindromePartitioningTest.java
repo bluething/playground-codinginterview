@@ -88,7 +88,7 @@ class PalindromePartitioningTest {
                     (end-start <= 2 || dp[start+1][end-1])) {
                 temp.add(s.substring(start, end+1));
                 dp[start][end] = true;
-                backtracking(result, temp, s, end+1);
+                backtracking(result, temp, s, end+1, dp);
                 temp.remove(temp.size()-1);
             }
         }
