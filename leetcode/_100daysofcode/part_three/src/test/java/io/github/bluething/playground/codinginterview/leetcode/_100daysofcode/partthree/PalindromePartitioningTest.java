@@ -21,6 +21,17 @@ class PalindromePartitioningTest {
         Assertions.assertEquals(Arrays.asList(Arrays.asList("a")), partition("a"));
     }
 
+    @Test
+    void case03() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList("a","a","b"),
+                Arrays.asList("aa","b")), partition2("aab"));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList("a")), partition2("a"));
+    }
+
     private List<List<String>> partition(String s) {
         List<List<String>> results = new ArrayList<>();
         backtracking(results, new ArrayList<>(), s, 0);
@@ -53,5 +64,33 @@ class PalindromePartitioningTest {
             end--;
         }
         return true;
+    }
+
+    private List<List<String>> partition2(String s) {
+        List<List<String>> results = new ArrayList<>();
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        backtracking(results, new ArrayList<>(), s, 0, dp);
+        return results;
+    }
+
+    // eliminate to call palindrome function
+    // a substring is a palindrome if
+    //// a char at start and end are equal
+    //// a substring from start+1 until end-1 is a palindrome
+    private void backtracking(List<List<String>> result, List<String> temp, String s, int start, boolean[][] dp) {
+        if (start >= s.length()) {
+            result.add(new ArrayList<>(temp));
+            return;
+        }
+
+        for (int end=start; end < s.length(); end++) {
+            if (s.charAt(start) == s.charAt(end) &&
+                    (end-start <= 2 || dp[start+1][end-1])) {
+                temp.add(s.substring(start, end+1));
+                dp[start][end] = true;
+                backtracking(result, temp, s, end+1);
+                temp.remove(temp.size()-1);
+            }
+        }
     }
 }
