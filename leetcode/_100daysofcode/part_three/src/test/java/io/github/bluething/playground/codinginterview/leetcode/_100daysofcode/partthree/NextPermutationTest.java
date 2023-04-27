@@ -27,6 +27,20 @@ class NextPermutationTest {
         Assertions.assertArrayEquals(new int[]{1,5,1}, arr);
     }
 
+    @Test
+    void case04() {
+        int[] arr = new int[]{1,3,5,4,3,2,1};
+        nextPermutation(arr);
+        Assertions.assertArrayEquals(new int[]{1,4,1,2,3,3,5}, arr);
+    }
+
+    // 1-3-5-4-3-2-1
+    // from right, find 1st decrement value, we have 3 in idx 1
+    // we need to swap this value with the 1st larger value on the right
+    // in this case we swap 3 in idx 1 with 4 in idx 3
+    // 1-4-5-3-3-2-1
+    // the last step is reverse the rest of the array 5-3-3-2-1
+    // 1-4-1-2-3-3-5
     private void nextPermutation(int[] nums) {
         int i = nums.length-2;
         while (i >= 0 && (nums[i] >= nums[i+1])) {
