@@ -72,13 +72,18 @@ class DecodeWaysTest {
         return numDecodingsRec(s, 0);
     }
     private int numDecodingsRec(String s, int idx) {
+        // define base condition
         if (idx == s.length()) {
             return 1;
         }
+        // define condition from question
         if (s.charAt(idx) == '0') {
             return 0;
         }
+        // implement logic for sub-problem, when we need to pick 1 or 2 next digit
+        // pick 1 digit
         int count = numDecodingsRec(s, idx+1);
+        // pick 2 digit
         if (idx < s.length()-1 && ((s.charAt(idx)-'0') * 10 + (s.charAt(idx+1)-'0')) < 27) {
             count += numDecodingsRec(s, idx+2);
         }
@@ -98,6 +103,7 @@ class DecodeWaysTest {
         if (s.charAt(idx) == '0') {
             return 0;
         }
+        // sub problem that has been solved
         if (mem[idx] != -1) {
             return mem[idx];
         }
@@ -105,16 +111,21 @@ class DecodeWaysTest {
         if (idx < s.length()-1 && ((s.charAt(idx)-'0') * 10 + (s.charAt(idx+1)-'0')) < 27) {
             count += numDecodingsRecMemo(s, idx+2, mem);
         }
-
+        // store intermediate result
         return mem[idx] = count;
     }
 
     private int numDecodingsDp(String s) {
         int[] dp = new int[s.length()+1];
+        // base case
         dp[s.length()] = 1;
         for (int i = s.length()-1; i >= 0; i--) {
+            // decode valid only when char is not '0'
             if (s.charAt(i) != '0') {
+                // single digit decode
                 dp[i] = dp[i+1];
+                // double digit decode
+                // beware of condition digit < 27
                 if (i < s.length()-1
                         && (s.charAt(i)=='1'|| s.charAt(i)=='2' && s.charAt(i+1) < '7')) {
                     dp[i] += dp[i+2];
