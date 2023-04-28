@@ -53,6 +53,21 @@ class DecodeWaysTest {
         Assertions.assertEquals(0, numDecodingsDp("06"));
     }
 
+    @Test
+    void case10() {
+        Assertions.assertEquals(2, numDecodingsDpWithConstantSpace("12"));
+    }
+
+    @Test
+    void case11() {
+        Assertions.assertEquals(3, numDecodingsDpWithConstantSpace("226"));
+    }
+
+    @Test
+    void case12() {
+        Assertions.assertEquals(0, numDecodingsDpWithConstantSpace("06"));
+    }
+
     private int numDecodings(String s) {
         return numDecodingsRec(s, 0);
     }
@@ -100,11 +115,28 @@ class DecodeWaysTest {
         for (int i = s.length()-1; i >= 0; i--) {
             if (s.charAt(i) != '0') {
                 dp[i] = dp[i+1];
-                if (i < s.length()-1 && ((s.charAt(i)-'0') * 10 + (s.charAt(i+1)-'0')) < 27) {
+                if (i < s.length()-1
+                        && (s.charAt(i)=='1'|| s.charAt(i)=='2' && s.charAt(i+1) < '7')) {
                     dp[i] += dp[i+2];
                 }
             }
         }
         return dp[0];
+    }
+
+    private int numDecodingsDpWithConstantSpace(String s) {
+        int dp1 = 1;
+        int dp2 = 0;
+        for (int i = s.length()-1; i >= 0; i--) {
+            int dp = s.charAt(i) == '0' ? 0 : dp1;
+            if (i < s.length()-1
+                    && (s.charAt(i)=='1'|| s.charAt(i)=='2' && s.charAt(i+1) < '7')) {
+                dp += dp2;
+            }
+            dp2 = dp1;
+            dp1 = dp;
+        }
+
+        return dp1;
     }
 }
