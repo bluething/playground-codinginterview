@@ -38,6 +38,21 @@ class DecodeWaysTest {
         Assertions.assertEquals(0, numDecodings2("06"));
     }
 
+    @Test
+    void case07() {
+        Assertions.assertEquals(2, numDecodingsDp("12"));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertEquals(3, numDecodingsDp("226"));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertEquals(0, numDecodingsDp("06"));
+    }
+
     private int numDecodings(String s) {
         return numDecodingsRec(s, 0);
     }
@@ -77,5 +92,19 @@ class DecodeWaysTest {
         }
 
         return mem[idx] = count;
+    }
+
+    private int numDecodingsDp(String s) {
+        int[] dp = new int[s.length()+1];
+        dp[s.length()] = 1;
+        for (int i = s.length()-1; i >= 0; i--) {
+            if (s.charAt(i) != '0') {
+                dp[i] = dp[i+1];
+                if (i < s.length()-1 && ((s.charAt(i)-'0') * 10 + (s.charAt(i+1)-'0')) < 27) {
+                    dp[i] += dp[i+2];
+                }
+            }
+        }
+        return dp[0];
     }
 }
