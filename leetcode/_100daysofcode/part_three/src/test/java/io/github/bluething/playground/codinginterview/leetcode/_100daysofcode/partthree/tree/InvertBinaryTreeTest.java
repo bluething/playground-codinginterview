@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 // https://leetcode.com/problems/invert-binary-tree/
 class InvertBinaryTreeTest {
 
@@ -68,7 +70,25 @@ class InvertBinaryTreeTest {
     }
 
     private TreeNode invertTreeIterative(TreeNode root) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        Stack<TreeNode> nodes = new Stack<>();
+        nodes.push(root);
+        TreeNode temp = null;
+        while (!nodes.isEmpty()) {
+            temp = nodes.pop();
+            if (temp != null) {
+                nodes.push(temp.left);
+                nodes.push(temp.right);
+
+                temp = root.left;
+                root.left = root.right;
+                root.right = temp;
+            }
+        }
+        return root;
     }
 
     class TreeNode {
