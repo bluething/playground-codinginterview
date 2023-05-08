@@ -51,7 +51,20 @@ class InvertBinaryTreeTest {
     }
 
     private TreeNode invertTree(TreeNode root) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        // switch
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        // call recursively
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
     }
 
     private TreeNode invertTreeIterative(TreeNode root) {
