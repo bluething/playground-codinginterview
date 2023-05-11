@@ -27,7 +27,34 @@ class DiameterOfBinaryTreeTest {
     }
 
     private int diameterOfBinaryTree(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        int[] diameter = new int[1];
+        height(root, diameter);
+        return diameter[0];
+    }
+
+    // dfs
+    // for each node we need to know the height
+    // then we can calculate the diameter
+    private int height(TreeNode root, int[] diameter) {
+        if (root == null) {
+            return -1;
+        }
+
+        // go to the left
+        int leftHeight = height(root.left, diameter);
+        // got to the right
+        int rightHeight = height(root.right, diameter);
+
+        // the formula to calculate diameter is leftHeight + rightHeight + 2
+        // why +2 is because we have 2 legs
+        // the convention is when we see null, we return -1 as a height
+        diameter[0] = Math.max(diameter[0], (leftHeight + rightHeight + 2));
+
+        // formula to calculate height of tree
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 
     class TreeNode {
