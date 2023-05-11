@@ -35,8 +35,28 @@ class BalancedBinaryTreeTest {
         Assertions.assertTrue(isBalanced(null));
     }
 
+    // the height of a tree is always >= 0
     private boolean isBalanced(TreeNode root) {
-        return true;
+        return height(root) != -1;
+    }
+
+    // dfs
+    // -1 == unbalance
+    private int height(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        if (leftHeight == -1 ||
+                rightHeight == -1 ||
+                Math.abs(leftHeight-rightHeight) > 1) {
+            return -1;
+        }
+
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 
     class TreeNode {
