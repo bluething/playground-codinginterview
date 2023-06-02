@@ -42,7 +42,7 @@ class MergeSortedArrayTest {
         Assertions.assertArrayEquals(expectedArray, nums1);
     }
 
-    // the key is "sorted in non-decreasing order"
+    // the key is "sorted in non-decreasing order", so we start checking from the right
     // foreach nums1 >= nums2, move nums1 value to the right (idx after m)
     private void merge(int[] nums1, int m, int[] nums2, int n) {
         int idx = m + n - 1;
