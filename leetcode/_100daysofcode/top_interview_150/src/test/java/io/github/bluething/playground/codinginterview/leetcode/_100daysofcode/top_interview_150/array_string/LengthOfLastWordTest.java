@@ -23,6 +23,7 @@ class LengthOfLastWordTest {
     }
 
     private int lengthOfLastWord(String s) {
-        return 0;
+        String[] ss = s.split("\\s+");
+        return ss[ss.length-1].length();
     }
 }
