@@ -17,6 +17,13 @@ class BestTimeToBuyAndSellStockTest {
     }
 
     private int maxProfit(int[] prices) {
-        return -1;
+        int provit = 0;
+        int buy = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            buy = Math.min(buy, prices[i]);
+            provit = Math.max(provit, prices[i] - buy);
+        }
+
+        return provit;
     }
 }
