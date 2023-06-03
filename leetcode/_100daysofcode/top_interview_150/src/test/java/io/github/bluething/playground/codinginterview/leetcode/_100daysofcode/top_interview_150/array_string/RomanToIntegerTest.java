@@ -22,6 +22,32 @@ class RomanToIntegerTest {
     }
 
     private int romanToInt(String s) {
-        return 0;
+        int romanInt = 0;
+        int prev = 0;
+        int current = 0;
+        for (char sChar : s.toCharArray()) {
+            current = converter(sChar);
+            romanInt += current;
+            // case IV, IX, XL, XC, CD, Cm
+            if (prev < current) {
+                romanInt -= prev * 2;
+            }
+            prev = current;
+        }
+
+        return romanInt;
+    }
+
+    private int converter(char c) {
+        return switch (c) {
+            case 'I' -> 1;
+            case 'V' -> 5;
+            case 'X' -> 10;
+            case 'L' -> 50;
+            case 'C' -> 100;
+            case 'D' -> 500;
+            case 'M' -> 1000;
+            default -> 0;
+        };
     }
 }
