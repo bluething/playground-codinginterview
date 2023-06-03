@@ -3,6 +3,10 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 // https://leetcode.com/problems/majority-element/?envType=study-plan-v2&id=top-interview-150
 class MajorityElementTest {
     @Test
@@ -35,15 +39,40 @@ class MajorityElementTest {
         Assertions.assertEquals(2, majorityElement3(new int[]{2,2,1,1,1,2,2}));
     }
 
+    // the key is "You may assume that the majority element always exists in the array"
     private int majorityElement(int[] nums) {
-        return 0;
+        Arrays.sort(nums);
+        return nums[nums.length/2];
     }
 
     private int majorityElement2(int[] nums) {
-        return 0;
+        Map<Integer, Integer> freqs = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            freqs.put(nums[i], freqs.getOrDefault(nums[i], 0) + 1);
+            if (freqs.get(nums[i]) > nums.length/2) {
+                return nums[i];
+            }
+        }
+        return -1;
     }
 
     private int majorityElement3(int[] nums) {
-        return 0;
+        int counter = 0;
+        int major = 0;
+        for (int num : nums) {
+            if (counter == 0) {
+                major = num;
+            }
+
+            // increment the counter as long as current value equal to major
+            // otherwise decrease it until 0, so we can assign new major candidate
+            if (num == major) {
+                counter++;
+            } else {
+                counter--;
+            }
+        }
+
+        return major;
     }
 }
