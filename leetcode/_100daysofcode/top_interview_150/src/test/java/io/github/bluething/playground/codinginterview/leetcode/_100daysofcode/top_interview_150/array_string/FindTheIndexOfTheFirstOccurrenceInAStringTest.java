@@ -16,7 +16,23 @@ class FindTheIndexOfTheFirstOccurrenceInAStringTest {
         Assertions.assertEquals(-1, strStr("leetcode", "leeto"));
     }
 
+    // sliding window of size needle.length
     private int strStr(String haystack, String needle) {
+        for (int windowStart = 0; windowStart <= haystack.length() - needle.length(); windowStart++) {
+            // for each char in needle, check if eq to haystack
+            // start from the left of window until the end -> windowStart + i
+            // break immediately if we find no equal char
+            for (int i = 0; i < needle.length(); i++) {
+                if (needle.charAt(i) != haystack.charAt(windowStart + i)) {
+                    break;
+                }
+                // we find the answer if in the current window all char is equal
+                if (i == needle.length() - 1) {
+                    return windowStart;
+                }
+            }
+        }
+
         return -1;
     }
 }
