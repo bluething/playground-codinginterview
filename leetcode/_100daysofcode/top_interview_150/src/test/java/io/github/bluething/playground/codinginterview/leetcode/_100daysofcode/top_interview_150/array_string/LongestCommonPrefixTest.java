@@ -16,7 +16,20 @@ class LongestCommonPrefixTest {
         Assertions.assertEquals("", longestCommonPrefix(new String[]{"dog","racecar","car"}));
     }
 
+    // assume 1st string was an LCP
+    // for each next string check if the current string has a prefix equal to LCP
+    // the key is, the LCP need to adjust by remove the last char until current string have a prefix of LCP
     private String longestCommonPrefix(String[] strs) {
-        return "";
+        if (strs.length == 0) {
+            return "";
+        }
+
+        String prefix = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length()-1);
+            }
+        }
+        return prefix;
     }
 }
