@@ -1,4 +1,4 @@
-package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.top_interview_150.array_string;
+package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.top_interview_150.array_hashing_string;
 
 
 import org.junit.jupiter.api.Assertions;
