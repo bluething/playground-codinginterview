@@ -12,11 +12,25 @@ class IsSubsequenceTest {
     }
     @Test
     void case02() {
-        Assertions.assertTrue(isSubsequence("axc", "ahbgdc"));
+        Assertions.assertFalse(isSubsequence("axc", "ahbgdc"));
+    }
+    @Test
+    void case03() {
+        Assertions.assertFalse(isSubsequence("aaaaaa", "bbaaaa"));
     }
 
 
+    // using two pointers for s and t
+    // we loop as long as both pointer not reach the end of string
+    // pointer s will increase when pointer t have same value
+    // if s is subsequence of t then at the end pointer s must reach end of string
     private boolean isSubsequence(String s, String t) {
-        return false;
+        int i = 0;
+        for (int j = 0; j < t.length() && i < s.length(); j++) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+        }
+        return i == s.length();
     }
 }
