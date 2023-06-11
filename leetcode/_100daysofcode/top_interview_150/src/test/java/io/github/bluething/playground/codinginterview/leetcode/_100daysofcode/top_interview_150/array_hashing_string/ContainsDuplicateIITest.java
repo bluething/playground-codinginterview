@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // https://leetcode.com/problems/contains-duplicate-ii/?envType=study-plan-v2&id=top-interview-150
 class ContainsDuplicateIITest {
 
@@ -26,7 +29,24 @@ class ContainsDuplicateIITest {
         Assertions.assertFalse(containsNearbyDuplicate(new int[]{1,2,1}, 0));
     }
 
+    // using a Set as a duplicate detector
+    // we only want to save k num in the set, so we need to maintain a sliding window within the set
     private boolean containsNearbyDuplicate(int[] nums, int k) {
-        return true;
+        if (k == 0) {
+            return false;
+        }
+
+        Set<Integer> uniqueNums = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!uniqueNums.add(nums[i])) {
+                return true;
+            }
+
+            if (i >= k) {
+                uniqueNums.remove(nums[i-k]);
+            }
+            uniqueNums.add(nums[i]);
+        }
+        return false;
     }
 }
