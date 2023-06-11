@@ -39,10 +39,15 @@ class IsomorphicStringsTest {
         Assertions.assertTrue(isIsomorphic("bbbaaa", "aaabbb"));
     }
 
-    // for the same index we have a map from s to t
-    // we can achieve this by using freq map
-    // but, we want to save a last index value as a counter
     // the idea is to store the last seen positions of current (i-th) characters in both strings
+    // "foo" and "bar"
+    // after 2nd loop:
+    // 1st "o" in "foo" we will have freqS[102]=2
+    // "a" in "bar" we will have freqT[97]=2
+    // we can say that "o" mapped to "a"
+    // in 3rd loop:
+    // 2nd "o" in "foo" we will have freqS[102]=2, but
+    // "r" in "bar" we will have freqT[114]=0
     private boolean isIsomorphic(String s, String t) {
         if (s.length() != t.length()) {
             return false;
