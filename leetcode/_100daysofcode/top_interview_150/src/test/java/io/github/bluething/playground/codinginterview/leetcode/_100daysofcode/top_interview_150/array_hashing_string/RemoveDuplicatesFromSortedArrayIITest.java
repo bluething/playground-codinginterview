@@ -26,7 +26,8 @@ class RemoveDuplicatesFromSortedArrayIITest {
         Assertions.assertEquals(7, removeDuplicates2(new int[]{0,0,1,1,1,1,2,3,3}));
     }
 
-    // two pointers, i pointer for new (result array) and j for input array
+    // two pointers, i pointer for new (result array), it will point to 3rd or higher element with same value
+    // j for input array, pointed to candidate to replace the i
     // when we meet the same value and the unique count less than sliding window
     // replace value pointed by i with value pointed by j and increment the i
     // increment the unique count
