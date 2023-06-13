@@ -26,6 +26,26 @@ class ContainerWithMostWaterTest {
         Assertions.assertEquals(49, maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
     }
 
+    @Test
+    void case05() {
+        Assertions.assertEquals(1, maxArea2(new int[]{1, 1}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(16, maxArea2(new int[]{4,3,2,1,4}));
+    }
+
+    @Test
+    void case07() {
+        Assertions.assertEquals(2, maxArea2(new int[]{1, 2, 1}));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertEquals(49, maxArea2(new int[]{1,8,6,2,5,4,8,3,7}));
+    }
+
     private int maxArea(int[] height) {
         int result = Integer.MIN_VALUE;
         int left = 0;
@@ -36,6 +56,23 @@ class ContainerWithMostWaterTest {
                 right--;
             } else {
                 left++;
+            }
+        }
+
+        return result;
+    }
+
+    private int maxArea2(int[] height) {
+        int result = Integer.MIN_VALUE;
+        int left = 0;
+        int right = height.length-1;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                result = Math.max(result, (right-left) * height[left]);
+                left++;
+            } else {
+                result = Math.max(result, (right-left) * height[right]);
+                right--;
             }
         }
 
