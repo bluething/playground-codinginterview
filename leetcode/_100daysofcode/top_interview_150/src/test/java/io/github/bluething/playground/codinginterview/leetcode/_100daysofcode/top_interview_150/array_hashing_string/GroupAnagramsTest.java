@@ -28,6 +28,26 @@ public class GroupAnagramsTest {
         Assertions.assertEquals(expected, groupAnagrams(new String[]{"a"}));
     }
 
+    @Test
+    void case04() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList("eat","tea","ate"),
+                Arrays.asList("bat"),
+                Arrays.asList("tan", "nat"));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{"eat","tea","tan","ate","nat","bat"}));
+    }
+
+    @Test
+    void case05() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList(""));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{""}));
+    }
+
+    @Test
+    void case06() {
+        List<List<String>> expected = Arrays.asList(Arrays.asList("a"));
+        Assertions.assertEquals(expected, groupAnagrams2(new String[]{"a"}));
+    }
+
     // time complexity O(NKlogK)
     private List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> anagrams = new HashMap<>();
@@ -44,6 +64,29 @@ public class GroupAnagramsTest {
             } else {
                 anagrams.get(strSorted).add(str);
             }
+        }
+
+        return new ArrayList<>(anagrams.values());
+    }
+
+    // if we don't care about the output, we can use this approach with better time complexity O(M*N)
+    // the difference with above solution is how we determine if the strings is an anagram
+    // in this approach we're using a frequency
+    // two string was an anagram if the frequency for the same char is same
+    private List<List<String>> groupAnagrams2(String[] strs) {
+        Map<String, List<String>> anagrams = new HashMap<>();
+        char[] freq = new char[]{};
+        String freqS = "";
+        for (String str : strs) {
+            freq = new char[26];
+            for (char c : str.toCharArray()) {
+                freq[c - 'a']++;
+            }
+            freqS = String.valueOf(freq);
+            if (!anagrams.containsKey(freqS)) {
+                anagrams.put(freqS, new ArrayList<>());
+            }
+            anagrams.get(freqS).add(str);
         }
 
         return new ArrayList<>(anagrams.values());
