@@ -4,6 +4,8 @@ import io.github.bluething.playground.codinginterview.leetcode._100daysofcode.to
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.security.cert.X509Certificate;
+
 // https://leetcode.com/problems/add-two-numbers/?envType=study-plan-v2&envId=top-interview-150
 class AddTwoNumbersTest extends ParentTest {
 
@@ -62,6 +64,27 @@ class AddTwoNumbersTest extends ParentTest {
 
     private ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode();
+        ListNode pointer = head;
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int sum = 0;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            sum += carry;
+            carry = sum / 10;
+
+            pointer.next = new ListNode(sum % 10);
+            pointer = pointer.next;
+
+        }
 
         return head.next;
     }
