@@ -38,7 +38,42 @@ class ReorderListTest extends ParentTest {
     }
 
     private void reorderList(ListNode head) {
+        // slow and fast pointer to get the middle node
+        // fast pointer start from slow+1 because we want to reach the last node
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
 
+        // reverse the list from middle + 1
+        // point to the next node after mid
+        ListNode secondHalf = slow.next;
+        // cut the head from start to mid
+        slow.next = null;
+        ListNode temp = null;
+        ListNode prev = null;
+        while (secondHalf != null) {
+            temp = secondHalf.next;
+            secondHalf.next = prev;
+            prev = secondHalf;
+            secondHalf = temp;
+        }
+        secondHalf = prev;
+
+        // merge first half (head) and second half
+        // merge 1-2 and 4-3
+        ListNode firstHalf = head;
+        ListNode temp1, temp2 = null;
+        while (secondHalf != null) {
+            temp1 = firstHalf.next;
+            temp2 = secondHalf.next;
+            firstHalf.next = secondHalf;
+            secondHalf.next = temp1;
+            firstHalf = temp1;
+            secondHalf = temp2;
+        }
     }
 
     class ListNode {
