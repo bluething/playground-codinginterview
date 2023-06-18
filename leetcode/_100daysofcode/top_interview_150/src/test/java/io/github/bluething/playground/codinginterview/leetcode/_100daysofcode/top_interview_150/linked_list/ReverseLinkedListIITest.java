@@ -35,7 +35,32 @@ class ReverseLinkedListIITest extends ParentTest {
     }
 
     private ListNode reverseBetween(ListNode head, int left, int right) {
-        return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode leftPrev = dummy;
+        ListNode current = head;
+        // move pointer to position left
+        for (int i = 1; i < left; i++) {
+            leftPrev = current;
+            current = current.next;
+        }
+
+        // current = node at left position
+        // leftPrev = node before left
+        // reverse from left to right
+        ListNode prev = null;
+        ListNode temp = null;
+        for (int i = 1; i <= right-left+1; i++) {
+            temp = current.next;
+            current.next = prev;
+            prev = current;
+            current = temp;
+        }
+
+        // update pointer, because reversed list don't have pointer to the original list (already broken)
+        leftPrev.next.next = current;
+        leftPrev.next = prev;
+
+        return dummy.next;
     }
 
     class ListNode {
