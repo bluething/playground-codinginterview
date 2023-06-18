@@ -46,8 +46,26 @@ class RemoveNthNodeFromEndOfListTest extends ParentTest {
         }
     }
 
+    // we need to have a pointer that point to the nth node
+    // we will use 2 pointers
     private ListNode removeNthFromEnd(ListNode head, int n) {
-        return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode left = dummy;
+        ListNode right = head;
+        // the ide is move the right pointer as far as n
+        while (n > 0) {
+            right = right.next;
+            n--;
+        }
+        // then we move both pointer until right pointer reach the end of list
+        // so we will have left pointer point to the nth node, because right pointer is n nodes ahead
+        while (right != null) {
+            right = right.next;
+            left = left.next;
+        }
+        left.next = left.next.next;
+
+        return dummy.next;
     }
 
     class ListNode {
