@@ -46,7 +46,18 @@ class DeleteTheMiddleNodeOfALinkedListTest extends ParentTest {
     }
 
     private ListNode deleteMiddle(ListNode head) {
-        return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+        // find the middle, start from 1st node loop until fast pointer reach end of list or 1 node before end list (for even nodes)
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // to delete the mid node we just change the pointer to the next node after next mid node
+        slow.next = slow.next.next;
+
+        return dummy.next;
     }
 
     class ListNode {
