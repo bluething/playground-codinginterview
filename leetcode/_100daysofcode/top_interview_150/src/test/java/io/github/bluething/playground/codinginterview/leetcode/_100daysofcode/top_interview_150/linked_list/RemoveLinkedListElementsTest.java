@@ -26,7 +26,7 @@ class RemoveLinkedListElementsTest extends ParentTest {
         ListNode empty = new ListNode();
         ListNode removed = removeElements(empty, 1);
         printLinkedList(removed);
-        Assertions.assertEquals("", output.toString());
+        Assertions.assertEquals("0", output.toString());
 
     }
 
@@ -49,7 +49,23 @@ class RemoveLinkedListElementsTest extends ParentTest {
     }
 
     private ListNode removeElements(ListNode head, int val) {
-        return null;
+        if (head == null) {
+            return head;
+        }
+
+        // when the next node not null
+        // give the rest of the list to next recursion
+        // in the next recursion we will check if the value equal to val
+        if (head.next != null) {
+            head.next = removeElements(head.next, val);
+        }
+
+        // when the current value equal to val, return the next node
+        if (head.val == val) {
+            return head.next;
+        } else {
+            return head;
+        }
     }
 
     class ListNode {
