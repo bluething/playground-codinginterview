@@ -27,6 +27,26 @@ class ReverseLinkedListIITest extends ParentTest {
         Assertions.assertEquals("5", output.toString());
     }
 
+    @Test
+    void case03() {
+        ListNode node5 = new ListNode(5);
+        ListNode node4 = new ListNode(4, node5);
+        ListNode node3 = new ListNode(3, node4);
+        ListNode node2 = new ListNode(2, node3);
+        ListNode node1 = new ListNode(1, node2);
+        ListNode result = reverseBetween2(node1, 2, 4);
+        printLinkedList(result);
+        Assertions.assertEquals("14325", output.toString());
+    }
+
+    @Test
+    void case04() {
+        ListNode node5 = new ListNode(5);
+        ListNode result = reverseBetween2(node5, 1, 1);
+        printLinkedList(result);
+        Assertions.assertEquals("5", output.toString());
+    }
+
     void printLinkedList(ListNode head) {
         while (head != null) {
             System.out.printf("%d", head.val);
@@ -61,6 +81,39 @@ class ReverseLinkedListIITest extends ParentTest {
         leftPrev.next = prev;
 
         return dummy.next;
+    }
+
+    private ListNode reverseBetween2(ListNode head, int left, int right) {
+        if (head == null || head.next == null || left <= 0 || right <= 0 || left == right) {
+            return head;
+        }
+
+        ListNode preHead = new ListNode(0);
+        preHead.next = head;
+
+        ListNode prev = preHead;
+        // move prev pointer to the lef-1 position
+        for (int i = 1; i < left; i++) {
+            prev = prev.next;
+        }
+
+        // current pointer will point to the left position
+        // reverse the list as much as right-left+1
+        ListNode current = prev.next;
+        ListNode temp = null;
+        ListNode reversedHead = null;
+        for (int i = 1; i <= right - left + 1; i++) {
+            temp = current.next;
+            current.next = reversedHead;
+            reversedHead = current;
+            current = temp;
+        }
+
+        // we need to connecting the reversed list to the main list
+        prev.next.next = current;
+        prev.next = reversedHead;
+
+        return preHead.next;
     }
 
     class ListNode {
