@@ -59,6 +59,31 @@ class MaximumTwinSumOfALinkedListTest {
         Assertions.assertEquals(100001, pairSum2(_1));
     }
 
+    @Test
+    void case07() {
+        ListNode _1 = new ListNode(1);
+        ListNode _2 = new ListNode(2, _1);
+        ListNode _4 = new ListNode(4, _2);
+        ListNode _5 = new ListNode(5, _4);
+        Assertions.assertEquals(6, pairSum3(_5));
+    }
+
+    @Test
+    void case08() {
+        ListNode _3 = new ListNode(3);
+        ListNode _22 = new ListNode(2, _3);
+        ListNode _2 = new ListNode(2, _22);
+        ListNode _4 = new ListNode(4, _2);
+        Assertions.assertEquals(7, pairSum3(_4));
+    }
+
+    @Test
+    void case09() {
+        ListNode _100000 = new ListNode(100000);
+        ListNode _1 = new ListNode(1, _100000);
+        Assertions.assertEquals(100001, pairSum3(_1));
+    }
+
     private int pairSum(ListNode head) {
         List<Integer> headVals = new ArrayList<>();
         while (head != null) {
@@ -104,6 +129,33 @@ class MaximumTwinSumOfALinkedListTest {
             slow = slow.next;
         }
 
+        return maxSum;
+    }
+
+    // reverse 2nd half list
+    private int pairSum3(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode secondHalfReversedHead = null;
+        ListNode temp = null;
+        while (slow != null) {
+            temp = slow.next;
+            slow.next = secondHalfReversedHead;
+            secondHalfReversedHead = slow;
+            slow = temp;
+        }
+
+        int maxSum = Integer.MIN_VALUE;
+        while (secondHalfReversedHead != null) {
+            maxSum = Integer.max(maxSum, secondHalfReversedHead.val + head.val);
+            secondHalfReversedHead = secondHalfReversedHead.next;
+            head = head.next;
+        }
         return maxSum;
     }
 
