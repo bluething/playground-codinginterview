@@ -21,7 +21,15 @@ class BestTimeToBuyAndSellStockIITest {
         Assertions.assertEquals(0, maxProfit(new int[]{7,6,4,3,1}));
     }
 
+    // the key is we visualize stock prices in cartesian diagram, price vs day
+    // when the chart goes uphill means we have buy-sel pair
     private int maxProfit(int[] prices) {
-        return 0;
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i-1]) {
+                profit += prices[i] - prices[i-1];
+            }
+        }
+        return profit;
     }
 }
