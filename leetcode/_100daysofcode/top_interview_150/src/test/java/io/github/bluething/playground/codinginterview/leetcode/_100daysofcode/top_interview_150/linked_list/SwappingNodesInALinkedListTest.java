@@ -49,7 +49,29 @@ class SwappingNodesInALinkedListTest extends ParentTest {
     }
 
     private ListNode swapNodes(ListNode head, int k) {
-        return null;
+        ListNode pointer = head;
+        ListNode leftKth = head;
+        ListNode rightKth = head;
+        // move the pointer to the kth node then assign to the leftKth object
+        for (int i = 1; i < k; i++) {
+            pointer = pointer.next;
+        }
+        leftKth = pointer;
+        // move pointer to the next node because we want to move the pointer to the right kth node
+        pointer = pointer.next;
+
+        // just move the pointer until the end of list
+        // then we will have a rightKth node point to the right kth node
+        while (pointer != null) {
+            pointer = pointer.next;
+            rightKth = rightKth.next;
+        }
+
+        int tmpVal = leftKth.val;
+        leftKth.val = rightKth.val;
+        rightKth.val = tmpVal;
+
+        return head;
     }
 
     class ListNode {
