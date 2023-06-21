@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description/
 class MaximumTwinSumOfALinkedListTest {
 
@@ -32,7 +35,22 @@ class MaximumTwinSumOfALinkedListTest {
     }
 
     private int pairSum(ListNode head) {
-        return 0;
+        List<Integer> headVals = new ArrayList<>();
+        while (head != null) {
+            headVals.add(head.val);
+            head = head.next;
+        }
+
+        int left = 0;
+        int right = headVals.size()-1;
+        int maxSum = Integer.MIN_VALUE;
+        while (left < right) {
+            maxSum = Integer.max(maxSum, headVals.get(left) + headVals.get(right));
+            left++;
+            right--;
+        }
+
+        return maxSum;
     }
 
     class ListNode {
