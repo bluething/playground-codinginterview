@@ -30,7 +30,31 @@ class DeleteNNodesAfterMNodesOfALinkedListTest extends ParentTest {
     }
 
     private void skipMDeleteN( ListNode head, int m, int n) {
+        ListNode skipped = head;
+        while (skipped != null) {
+            // move the skipped pointer as much as m-1
+            // then skipped pointer will point to the node before node that need to delete
+            for (int i = 1; i < m && skipped != null; i++) {
+                skipped = skipped.next;
+            }
 
+            if (skipped == null) {
+                return;
+            }
+
+            // to delete the n node, just move the pointer after skipped as much as n
+            // then the removed pointer will point to the node after last deleted node
+            ListNode removed = skipped.next;
+            for (int i = 1; i <= n && removed != null; i++) {
+                removed = removed.next;
+            }
+
+            // aslign the list again because we break the cain
+            skipped.next = removed;
+            skipped = removed;
+
+            // loop until we reach end of list
+        }
     }
 
     class ListNode {
