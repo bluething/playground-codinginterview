@@ -33,6 +33,10 @@ class OrderedStreamTest {
         public List<String> insert(int idKey, String value) {
             List<String> result = new ArrayList<>();
             streams[idKey-1] = value;
+            // minor optimization when we can eliminate ptr < streams.length from the condition
+            // we can use a dummy element that mark end of list
+            // instead of using n array, we can use n+1 array
+            // so the element in index n will always be null
             while (ptr < streams.length && streams[ptr] != null) {
                 result.add(streams[ptr]);
                 ptr++;
