@@ -22,12 +22,21 @@ class OrderedStreamTest {
 
     class OrderedStream {
 
-        public OrderedStream(int n) {
+        private int ptr;
+        private final String[] streams;
 
+        public OrderedStream(int n) {
+            streams = new String[n];
+            ptr = 0;
         }
 
         public List<String> insert(int idKey, String value) {
             List<String> result = new ArrayList<>();
+            streams[idKey-1] = value;
+            while (ptr < streams.length && streams[ptr] != null) {
+                result.add(streams[ptr]);
+                ptr++;
+            }
 
             return result;
         }
