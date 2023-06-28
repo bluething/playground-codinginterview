@@ -22,6 +22,24 @@ class RotateArrayTest {
 
 
     private void rotate(int[] nums, int k) {
+        // the k can be > nums.length
+        k %= nums.length;
+        // reverse all
+        reverse(nums, 0, nums.length-1);
+        // reverse the 1st k
+        reverse(nums, 0, k-1);
+        // reverse the rest
+        reverse(nums, k, nums.length-1);
+    }
 
+    private void reverse(int[] nums, int left, int right) {
+        int temp = 0;
+        while (left < right) {
+            temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+            left++;
+            right--;
+        }
     }
 }
