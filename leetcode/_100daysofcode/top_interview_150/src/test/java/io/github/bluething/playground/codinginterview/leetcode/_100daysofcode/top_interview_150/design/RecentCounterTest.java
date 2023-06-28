@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class RecentCounterTest {
 
     @Test
@@ -17,12 +20,20 @@ class RecentCounterTest {
 
     class RecentCounter {
 
-        public RecentCounter() {
+        // fifo operation
+        private final Queue<Integer> queue;
 
+        public RecentCounter() {
+            queue = new LinkedList<>();
         }
 
         public int ping(int t) {
-            return 0;
+            queue.add(t);
+            // keep the sliding window start from t-3000
+            while (queue.peek() < t-3000) {
+                queue.poll();
+            }
+            return queue.size();
         }
     }
 }
