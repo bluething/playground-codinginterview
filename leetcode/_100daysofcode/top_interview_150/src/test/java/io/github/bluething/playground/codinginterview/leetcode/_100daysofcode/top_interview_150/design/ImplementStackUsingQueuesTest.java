@@ -29,15 +29,39 @@ class ImplementStackUsingQueuesTest {
         Assertions.assertFalse(myStack.empty());
     }
 
+    @Test
+    void case03() {
+        MyStack2 myStack = new MyStack2();
+        myStack.push(1);
+        myStack.push(2);
+        Assertions.assertEquals(2, myStack.top());
+        Assertions.assertEquals(2, myStack.pop());
+        Assertions.assertFalse(myStack.empty());
+    }
+
+    @Test
+    void case04() {
+        MyStack2 myStack = new MyStack2();
+        myStack.push(1);
+        myStack.push(2);
+        Assertions.assertEquals(2, myStack.pop());
+        Assertions.assertEquals(1, myStack.top());
+        Assertions.assertFalse(myStack.empty());
+    }
+
+    // the 1st key is we need to keep track the top value
+    //  so, we don't need to move value between queue in peek()
+    // in pop(), we move value from queue1 to queueTemp except the bottom element (the front in stack)
+    //  then we switch between queue1 and queueTmp
     class MyStack {
 
         private Queue<Integer> queue1;
-        private Queue<Integer> queue2;
+        private Queue<Integer> queueTmp;
         private int top;
 
         public MyStack() {
             queue1 = new LinkedList<>();
-            queue2 = new LinkedList<>();
+            queueTmp = new LinkedList<>();
         }
 
         public void push(int x) {
@@ -48,18 +72,53 @@ class ImplementStackUsingQueuesTest {
         public int pop() {
             while (queue1.size() > 1) {
                 top = queue1.remove();
-                queue2.add(top);
+                queueTmp.add(top);
             }
             int res = queue1.remove();
             Queue<Integer> tmp = queue1;
-            queue1 = queue2;
-            queue2 = tmp;
+            queue1 = queueTmp;
+            queueTmp = tmp;
 
             return res;
         }
 
         public int top() {
             return top;
+        }
+
+        public boolean empty() {
+            return queue1.isEmpty();
+        }
+    }
+
+    class MyStack2 {
+
+        private Queue<Integer> queue1;
+        private Queue<Integer> queue2;
+        private int top;
+
+        public MyStack2() {
+            queue1 = new LinkedList<>();
+            queue2 = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            queue2.add(x);
+            while (!queue1.isEmpty()) {
+                queue2.add(queue1.remove());
+            }
+
+            Queue<Integer> tmp = queue1;
+            queue1 = queue2;
+            queue2 = tmp;
+        }
+
+        public int pop() {
+            return queue1.remove();
+        }
+
+        public int top() {
+            return queue1.peek();
         }
 
         public boolean empty() {
