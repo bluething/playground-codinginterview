@@ -49,6 +49,26 @@ class ImplementStackUsingQueuesTest {
         Assertions.assertFalse(myStack.empty());
     }
 
+    @Test
+    void case05() {
+        MyStack3 myStack = new MyStack3();
+        myStack.push(1);
+        myStack.push(2);
+        Assertions.assertEquals(2, myStack.top());
+        Assertions.assertEquals(2, myStack.pop());
+        Assertions.assertFalse(myStack.empty());
+    }
+
+    @Test
+    void case06() {
+        MyStack3 myStack = new MyStack3();
+        myStack.push(1);
+        myStack.push(2);
+        Assertions.assertEquals(2, myStack.pop());
+        Assertions.assertEquals(1, myStack.top());
+        Assertions.assertFalse(myStack.empty());
+    }
+
     // the 1st key is we need to keep track the top value
     //  so, we don't need to move value between queue in peek()
     // in pop(), we move value from queue1 to queueTemp except the bottom element (the front in stack)
@@ -123,6 +143,38 @@ class ImplementStackUsingQueuesTest {
 
         public boolean empty() {
             return queue1.isEmpty();
+        }
+    }
+
+    // using only 1 queue
+    // the key is when we push new value we need to move existing value to the end of the queue (like pop-push with temp)
+    class MyStack3 {
+
+        private Queue<Integer> queue;
+
+        public MyStack3() {
+            queue = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            queue.add(x);
+            int size = queue.size();
+            while (size > 1) {
+                queue.add(queue.remove());
+                size--;
+            }
+        }
+
+        public int pop() {
+            return queue.remove();
+        }
+
+        public int top() {
+            return queue.peek();
+        }
+
+        public boolean empty() {
+            return queue.isEmpty();
         }
     }
 }
