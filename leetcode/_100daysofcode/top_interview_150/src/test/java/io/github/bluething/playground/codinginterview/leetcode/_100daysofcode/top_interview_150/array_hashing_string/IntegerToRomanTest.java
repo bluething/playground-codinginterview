@@ -21,7 +21,27 @@ class IntegerToRomanTest {
         Assertions.assertEquals("MCMXCIV", intToRoman(1994));
     }
 
+    // just subtract the num until 0
+    // the key is we need to have a dictionary (int-roman) that order desc
+    // here I use 2 array
+    // if the num greater or equal dictionary[i] then subtract it
+    //  we start from the biggest roman, 1000
+    //  we move to the next roman if the num less than dictionary[i]
     private String intToRoman(int num) {
-        return "";
+        int[] ints = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] romans = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        StringBuilder sb = new StringBuilder("");
+
+        int idx = 0;
+        while (num > 0) {
+            while (num >= ints[idx]) {
+                num -= ints[idx];
+                sb.append(romans[idx]);
+            }
+
+            idx++;
+        }
+
+        return sb.toString();
     }
 }
