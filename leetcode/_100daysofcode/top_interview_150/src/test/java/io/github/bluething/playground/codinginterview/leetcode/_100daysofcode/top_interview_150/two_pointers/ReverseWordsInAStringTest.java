@@ -21,7 +21,15 @@ class ReverseWordsInAStringTest {
         Assertions.assertEquals("example good a", reverseWords("a good   example"));
     }
 
+    // the key is we need to split by space
+    // then save to an array
+    // then iterate from last element to construct the result
     private String reverseWords(String s) {
-        return "";
+        String[] ss = s.split("\\s+");
+        StringBuilder sb = new StringBuilder("");
+        for (int i = ss.length-1; i >= 0; i--) {
+            sb.append(ss[i]).append(" ");
+        }
+        return sb.toString().trim();
     }
 }
