@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,21 @@ class LongestConsecutiveSequenceTest {
     @Test
     void case06() {
         Assertions.assertEquals(3, longestConsecutive2(new int[]{1,0,-1}));
+    }
+
+    @Test
+    void case07() {
+        Assertions.assertEquals(4, longestConsecutive3(new int[]{100,4,200,1,3,2}));
+    }
+
+    @Test
+    void case08() {
+        Assertions.assertEquals(9, longestConsecutive3(new int[]{0,3,7,2,5,8,4,6,0,1}));
+    }
+
+    @Test
+    void case09() {
+        Assertions.assertEquals(3, longestConsecutive3(new int[]{1,0,-1}));
     }
 
     // brute force solution
@@ -94,5 +110,27 @@ class LongestConsecutiveSequenceTest {
         }
 
         return maxLength;
+    }
+
+    private int longestConsecutive3(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+
+        Arrays.sort(nums);
+        int maxLength = 0;
+        int curentLength = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i-1] + 1) {
+                curentLength++;
+            } else if (nums[i] == nums[i-1]) {
+                continue;
+            } else {
+                curentLength = 1;
+            }
+
+            maxLength = Math.max(curentLength, maxLength);
+        }
+        return Math.max(curentLength, maxLength);
     }
 }
