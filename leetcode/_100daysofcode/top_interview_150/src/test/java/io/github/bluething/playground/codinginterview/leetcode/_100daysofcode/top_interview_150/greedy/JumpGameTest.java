@@ -16,6 +16,16 @@ class JumpGameTest {
         Assertions.assertFalse(canJump(new int[]{3,2,1,0,4}));
     }
 
+    @Test
+    void case03() {
+        Assertions.assertTrue(canJump2(new int[]{2,3,1,1,4}));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertFalse(canJump2(new int[]{3,2,1,0,4}));
+    }
+
     // use greedy
     private boolean canJump(int[] nums) {
         int goalIdx = nums.length-1;
@@ -26,5 +36,18 @@ class JumpGameTest {
         }
 
         return goalIdx == 0;
+    }
+
+    private boolean canJump2(int[] nums) {
+        int furthestReachableIdx = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > furthestReachableIdx) {
+                return false;
+            }
+
+            furthestReachableIdx = Math.max(furthestReachableIdx, i+nums[i]);
+        }
+
+        return true;
     }
 }
