@@ -28,6 +28,16 @@ class JumpGameIITest {
         Assertions.assertEquals(2, jump2(new int[]{2,3,0,1,4}));
     }
 
+    @Test
+    void case05() {
+        Assertions.assertEquals(2, jump3(new int[]{2,3,1,1,4}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(2, jump3(new int[]{2,3,0,1,4}));
+    }
+
     // brute force approach
     // we track all move from idx 0 to reach each position
     //  watch out! each index can be reach from previous index
@@ -51,11 +61,11 @@ class JumpGameIITest {
 
         return minSteps[n-1];
     }
+    // get TLE
     private int jump2(int[] nums) {
         return jump2Rec(nums, 0);
     }
-    private int jump2Rec(int[] nums, int positionIdx
-    ) {
+    private int jump2Rec(int[] nums, int positionIdx) {
         // base case reach the end
         if (positionIdx == nums.length-1) {
             return 0;
@@ -74,6 +84,33 @@ class JumpGameIITest {
         }
 
         return minJump;
+    }
+
+    private int jump3(int[] nums) {
+        Integer[] memoMinSteps = new Integer[nums.length];
+        return jump3Rec(nums, 0, memoMinSteps);
+    }
+    private int jump3Rec(int[] nums, int positionIdx, Integer[] memoMinSteps) {
+        // base case reach the end
+        if (positionIdx == nums.length-1) {
+            return 0;
+        }
+
+        if (memoMinSteps[positionIdx] != null) {
+            return memoMinSteps[positionIdx];
+        }
+
+        int minJump = nums.length;
+        int maxJumpIdx = Math.min(nums.length-1, positionIdx+nums[positionIdx]);
+        // for each index inside coverage by idx position
+        for (int nextPositionIdx = positionIdx+1; nextPositionIdx <= maxJumpIdx; nextPositionIdx++) {
+            int jump = jump3Rec(nums, nextPositionIdx, memoMinSteps);
+            if (jump != nums.length) {
+                minJump = Math.min(minJump, 1+jump);
+            }
+        }
+
+        return memoMinSteps[positionIdx] = minJump;
     }
 
 }
