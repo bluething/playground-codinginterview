@@ -22,6 +22,21 @@ class MinimumSizeSubarraySumTest {
     }
 
     private int minSubArrayLen(int target, int[] nums) {
-        return 0;
+        int left = 0;
+        int sum = 0;
+        int result = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+
+            // adjust the window until the sum less than target
+            //  we need to adjust the window because we need to find the smallest length of window
+            while (sum >= target) {
+                // find minimum length
+                result = Math.min(result, i - left + 1);
+                // subtract leftmost value from sum then move the pointer to the next element
+                sum -= nums[left++];
+            }
+        }
+        return result == Integer.MAX_VALUE ? 0 : result;
     }
 }
