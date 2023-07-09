@@ -48,6 +48,21 @@ class JumpGameIITest {
         Assertions.assertEquals(2, jump4(new int[]{2,3,0,1,4}));
     }
 
+    @Test
+    void case09() {
+        Assertions.assertEquals(2, jump5(new int[]{2,3,1,1,4}));
+    }
+
+    @Test
+    void case10() {
+        Assertions.assertEquals(2, jump5(new int[]{2,3,0,1,4}));
+    }
+
+    @Test
+    void case11() {
+        Assertions.assertEquals(3, jump5(new int[]{1,4,2,8,3,4,8,4,11}));
+    }
+
     // brute force approach
     // we track all move from idx 0 to reach each position
     //  watch out! each index can be reach from previous index
@@ -140,6 +155,39 @@ class JumpGameIITest {
         }
 
         return minJump;
+    }
+
+    // using bfs
+    private int jump5(int[] nums) {
+        if (nums.length == 1) {
+            return 0;
+        }
+
+        int start = 0;
+        int end = 0;
+        int farthestIdx = 0;
+        int minStep = 0;
+        // inside the window coverage
+        while (start <= end) {
+            // from the start index until end of the index cover by the value step
+            // we want to find the index that have enough step to reach the end
+            for (int i = start; i <= Math.min(end, nums.length-1); i++) {
+                farthestIdx = Math.max(farthestIdx, i+nums[i]);
+                // stop searching because we find the index that have enough step to reach the end
+                if (farthestIdx >= nums.length-1) {
+                    return minStep+1;
+                }
+            }
+
+            // if we can't reach the end with loop inside the coverage
+            //  means we already move 1 step
+            //  we need to check for the next coverage
+            start = end+1;
+            end = farthestIdx;
+            minStep++;
+        }
+
+        return -1;
     }
 
 }
