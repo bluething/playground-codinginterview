@@ -18,6 +18,16 @@ class JumpGameIITest {
         Assertions.assertEquals(2, jump(new int[]{2,3,0,1,4}));
     }
 
+    @Test
+    void case03() {
+        Assertions.assertEquals(2, jump2(new int[]{2,3,1,1,4}));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertEquals(2, jump2(new int[]{2,3,0,1,4}));
+    }
+
     // brute force approach
     // we track all move from idx 0 to reach each position
     //  watch out! each index can be reach from previous index
@@ -41,4 +51,29 @@ class JumpGameIITest {
 
         return minSteps[n-1];
     }
+    private int jump2(int[] nums) {
+        return jump2Rec(nums, 0);
+    }
+    private int jump2Rec(int[] nums, int positionIdx
+    ) {
+        // base case reach the end
+        if (positionIdx == nums.length-1) {
+            return 0;
+        }
+
+        int minJump = nums.length;
+        int maxJumpIdx = Math.min(nums.length-1, positionIdx+nums[positionIdx]);
+        // for each index inside coverage by idx position
+        // 2,3,1,1,4
+        // for idx 0 then nextPositionIdx will be 1 and 2
+        for (int nextPositionIdx = positionIdx+1; nextPositionIdx <= maxJumpIdx; nextPositionIdx++) {
+            int jump = jump2Rec(nums, nextPositionIdx);
+            if (jump != nums.length) {
+                minJump = Math.min(minJump, 1+jump);
+            }
+        }
+
+        return minJump;
+    }
+
 }
