@@ -34,6 +34,7 @@ class RangeSumQueryImmutableTest {
             }
         }
 
+        // watch out index out of bound exception when left == 0
         public int sumRange(int left, int right) {
             return prefixSum[right] - (left == 0 ? 0 : prefixSum[left-1]);
         }
@@ -44,6 +45,7 @@ class RangeSumQueryImmutableTest {
         private final int[] prefixSum;
 
         public NumArray2(int[] nums) {
+            // use extra space to handle sumRange when left == 0
             prefixSum = new int[nums.length+1];
             prefixSum[0] = 0;
             for (int i = 0; i < nums.length; i++) {
