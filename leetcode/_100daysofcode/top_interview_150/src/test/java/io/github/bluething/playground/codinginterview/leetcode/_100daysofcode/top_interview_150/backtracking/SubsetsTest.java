@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +28,30 @@ class SubsetsTest {
                 Arrays.asList(0)), subsets(new int[]{0}));
     }
 
+    // using intuition, cascading
+    // start from subset in output list
+    // At each step one takes new integer into consideration and generates new subsets from the existing ones
     private List<List<Integer>> subsets(int[] nums) {
-        return null;
+        List<List<Integer>> outputs = new ArrayList<>();
+        // []
+        outputs.add(new ArrayList<>());
+
+        // num = 1
+        // [] [1]
+        // num = 2
+        // [] [1] [2] [1][2]
+        for (int num : nums) {
+            List<List<Integer>> temp = new ArrayList<>();
+            for (List<Integer> current : outputs) {
+                // when current empty then is like create new list with num value
+                // otherwise it will add the num to the existing list
+                temp.add(new ArrayList<>(current){{add(num);}});
+            }
+            for (List<Integer> current : temp) {
+                outputs.add(current);
+            }
+        }
+
+        return outputs;
     }
 }
