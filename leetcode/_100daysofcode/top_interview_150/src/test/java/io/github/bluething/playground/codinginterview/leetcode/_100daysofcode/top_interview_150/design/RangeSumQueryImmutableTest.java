@@ -8,20 +8,26 @@ class RangeSumQueryImmutableTest {
 
     @Test
     void case01() {
-        NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
-        Assertions.assertEquals(-2, numArray.sumRange(0, 2));
-        Assertions.assertEquals(-1. numArray.sumRange(2, 5));
+        NumArray numArray = new NumArray(new int[]{-2, 0, 3, -5, 2, -1});
+        Assertions.assertEquals(1, numArray.sumRange(0, 2));
+        Assertions.assertEquals(-1, numArray.sumRange(2, 5));
         Assertions.assertEquals(-3, numArray.sumRange(0, 5));
     }
 
     class NumArray {
 
-        public NumArray(int[] nums) {
+        private final int[] prefixSum;
 
+        public NumArray(int[] nums) {
+            prefixSum = new int[nums.length];
+            prefixSum[0] = nums[0];
+            for (int i = 1; i < nums.length; i++) {
+                prefixSum[i] = prefixSum[i-1] + nums[i];
+            }
         }
 
         public int sumRange(int left, int right) {
-            return 0;
+            return prefixSum[right] - (left == 0 ? 0 : prefixSum[left-1]);
         }
     }
 }
