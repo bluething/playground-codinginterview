@@ -28,6 +28,24 @@ class SubsetsTest {
                 Arrays.asList(0)), subsets(new int[]{0}));
     }
 
+    @Test
+    void case03() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(),
+                Arrays.asList(1),
+                Arrays.asList(1,2),
+                Arrays.asList(1,2,3),
+                Arrays.asList(1,3),
+                Arrays.asList(2),
+                Arrays.asList(2,3),
+                Arrays.asList(3)), subsets2(new int[]{1,2,3}));
+    }
+
+    @Test
+    void case04() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(),
+                Arrays.asList(0)), subsets2(new int[]{0}));
+    }
+
     // using intuition, cascading
     // start from subset in output list
     // At each step one takes new integer into consideration and generates new subsets from the existing ones
@@ -43,7 +61,7 @@ class SubsetsTest {
         for (int num : nums) {
             List<List<Integer>> temp = new ArrayList<>();
             for (List<Integer> current : outputs) {
-                // when current empty then is like create new list with num value
+                // when current is empty then is like create new list with num value
                 // otherwise it will add the num to the existing list
                 temp.add(new ArrayList<>(current){{add(num);}});
             }
@@ -53,5 +71,23 @@ class SubsetsTest {
         }
 
         return outputs;
+    }
+
+    private List<List<Integer>> subsets2(int[] nums) {
+        // only for local test
+        Arrays.sort(nums);
+        List<List<Integer>> outputs = new ArrayList<>();
+        backtracking(outputs, new ArrayList<>(), nums, 0);
+        return outputs;
+    }
+    private void backtracking(List<List<Integer>> outputs, List<Integer> temp, int[] nums, int idx) {
+        outputs.add(new ArrayList<>(temp));
+        for (int i = idx; i < nums.length; i++) {
+            temp.add(nums[i]);
+            // recursively move to the bottom, all child
+            backtracking(outputs, temp, nums, i+1);
+            // backtrack, we need to remove last element
+            temp.remove(temp.size()-1);
+        }
     }
 }
