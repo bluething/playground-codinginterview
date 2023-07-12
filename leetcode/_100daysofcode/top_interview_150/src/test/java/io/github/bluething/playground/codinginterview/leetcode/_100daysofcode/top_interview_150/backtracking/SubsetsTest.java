@@ -46,6 +46,24 @@ class SubsetsTest {
                 Arrays.asList(0)), subsets2(new int[]{0}));
     }
 
+    @Test
+    void case05() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(1,2,3),
+                Arrays.asList(1,2),
+                Arrays.asList(1,3),
+                Arrays.asList(1),
+                Arrays.asList(2,3),
+                Arrays.asList(2),
+                Arrays.asList(3),
+                Arrays.asList()), subsets3(new int[]{1,2,3}));
+    }
+
+    @Test
+    void case06() {
+        Assertions.assertEquals(Arrays.asList(Arrays.asList(0),
+                Arrays.asList()), subsets3(new int[]{0}));
+    }
+
     // using intuition, cascading
     // start from subset in output list
     // At each step one takes new integer into consideration and generates new subsets from the existing ones
@@ -89,5 +107,26 @@ class SubsetsTest {
             // backtrack, we need to remove last element
             temp.remove(temp.size()-1);
         }
+    }
+
+    private List<List<Integer>> subsets3(int[] nums) {
+        // only for local test
+        Arrays.sort(nums);
+        List<List<Integer>> outputs = new ArrayList<>();
+        backtrackingPickNoPick(outputs, new ArrayList<>(), nums, 0);
+        return outputs;
+    }
+    private void backtrackingPickNoPick(List<List<Integer>> outputs, List<Integer> temp, int[] nums, int idx) {
+        if (idx >= nums.length) {
+            outputs.add(new ArrayList<>(temp));
+            return;
+        }
+
+        temp.add(nums[idx]);
+        backtrackingPickNoPick(outputs, temp, nums, idx+1);
+
+        // not pick nums[idx]
+        temp.remove(temp.size()-1);
+        backtrackingPickNoPick(outputs, temp, nums, idx+1);
     }
 }
