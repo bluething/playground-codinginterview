@@ -23,6 +23,17 @@ class LengthOfLastWordTest {
     }
 
     private int lengthOfLastWord(String s) {
-        return 0;
+        int maxLength = 0;
+        for (int i = s.length()-1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') {
+                maxLength++;
+            } else {
+                if (maxLength > 0) {
+                    break;
+                }
+            }
+        }
+
+        return maxLength;
     }
 }
