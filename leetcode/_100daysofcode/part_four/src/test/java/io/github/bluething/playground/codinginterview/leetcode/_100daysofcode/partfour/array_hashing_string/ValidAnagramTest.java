@@ -22,6 +22,22 @@ class ValidAnagramTest {
     }
 
     private boolean isAnagram(String s, String t) {
-        return false;
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        char[] marks = new char[26];
+        for (int i = 0; i < s.length(); i++) {
+            marks[s.charAt(i)-97]++;
+            marks[t.charAt(i)-97]--;
+        }
+
+        for (char mark : marks) {
+            if (mark != 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
