@@ -17,6 +17,12 @@ class RemoveDuplicatesFromSortedArrayTest {
     }
 
     private int removeDuplicates(int[] nums) {
-        return 0;
+        int uniqueIdx = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i-1]) {
+                nums[++uniqueIdx] = nums[i];
+            }
+        }
+        return uniqueIdx+1;
     }
 }
