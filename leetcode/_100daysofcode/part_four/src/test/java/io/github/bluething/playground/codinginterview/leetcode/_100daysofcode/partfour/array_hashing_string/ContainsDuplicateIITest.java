@@ -33,7 +33,7 @@ class ContainsDuplicateIITest {
         if (k == 0) {
             return false;
         }
-        
+
         Set<Integer> uniqueNums = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
             if (!uniqueNums.add(nums[i])) {
