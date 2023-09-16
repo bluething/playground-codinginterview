@@ -17,6 +17,20 @@ class MajorityElementTest {
     }
 
     private int majorityElement(int[] nums) {
-        return 0;
+        int counter = 0;
+        int major = 0;
+        for (int num : nums) {
+            if (counter == 0) {
+                major = num;
+            }
+
+            if (major == num) {
+                counter++;
+            } else {
+                counter--;
+            }
+        }
+
+        return major;
     }
 }
