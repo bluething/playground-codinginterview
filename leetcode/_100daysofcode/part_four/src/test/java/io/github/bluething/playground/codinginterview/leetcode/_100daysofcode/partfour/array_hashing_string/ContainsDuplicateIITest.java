@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.p
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // https://leetcode.com/problems/contains-duplicate-ii/?envType=study-plan-v2&id=top-interview-150
 class ContainsDuplicateIITest {
 
@@ -27,6 +30,20 @@ class ContainsDuplicateIITest {
     }
 
     private boolean containsNearbyDuplicate(int[] nums, int k) {
+        if (k == 0) {
+            return false;
+        }
+        
+        Set<Integer> uniqueNums = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!uniqueNums.add(nums[i])) {
+                return true;
+            }
+            if (i >= k) {
+                uniqueNums.remove(nums[i-k]);
+            }
+        }
+
         return false;
     }
 }
