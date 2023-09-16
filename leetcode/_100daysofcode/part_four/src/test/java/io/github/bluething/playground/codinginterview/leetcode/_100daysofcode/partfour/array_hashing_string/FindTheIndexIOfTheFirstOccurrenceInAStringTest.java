@@ -17,6 +17,16 @@ class FindTheIndexIOfTheFirstOccurrenceInAStringTest {
     }
 
     private int strStr(String haystack, String needle) {
-        return 0;
+        for (int idx = 0; idx <= haystack.length() - needle.length(); idx++) {
+            for (int i = 0; i < needle.length(); i++) {
+                if (needle.charAt(i) != haystack.charAt(idx+i)) {
+                    break;
+                }
+                if (i == needle.length()-1) {
+                    return idx;
+                }
+            }
+        }
+        return -1;
     }
 }
