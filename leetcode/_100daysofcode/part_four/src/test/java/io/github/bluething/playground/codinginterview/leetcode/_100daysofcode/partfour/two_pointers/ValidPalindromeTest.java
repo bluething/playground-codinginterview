@@ -32,6 +32,36 @@ class ValidPalindromeTest {
     }
 
     private boolean isPalindrome(String s) {
+        char[] marks = new char[256];
+        for (int i = 0; i < 10; i++) {
+            marks[i + '0'] = (char) (i+1);
+        }
+        for (int i = 0; i < 26; i++) {
+            marks[i + 'a'] = marks[i + 'A'] = (char) (i + 11);
+        }
+
+        int i = 0;
+        int j = s.length()-1;
+        char ci;
+        char cj;
+        while (i < j) {
+            ci = marks[s.charAt(i)];
+            cj = marks[s.charAt(j)];
+            if (ci != 0 && cj != 0) {
+                if (ci != cj) {
+                    return false;
+                }
+                i++;
+                j--;
+            } else {
+                if (ci == 0) {
+                    i++;
+                }
+                if (cj == 0) {
+                    j--;
+                }
+            }
+        }
         return true;
     }
 }
