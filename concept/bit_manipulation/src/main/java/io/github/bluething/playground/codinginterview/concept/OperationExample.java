@@ -93,6 +93,14 @@ public class OperationExample {
         T = lowBit(S); System.out.printf("T = %d (this is always a power of 2)\n", T);
         S = 52; printSet(S);
         T = lowBit(S); System.out.printf("T = %d (this is always a power of 2)\n", T);
+        S = 0; printSet(0);
+        T = lowBit(0); System.out.printf("T = %d (this is always a power of 2)\n", T);
+        S = 1; printSet(1);
+        T = lowBit(1); System.out.printf("T = %d (this is always a power of 2)\n", T);
+        S = 2; printSet(2);
+        T = lowBit(2); System.out.printf("T = %d (this is always a power of 2)\n", T);
+        S = 9; printSet(9);
+        T = lowBit(9); System.out.printf("T = %d (this is always a power of 2)\n", T);
 
         System.out.println("8. Turn on all bits in a set of size n = 6");
         S = setAll(6); printSet(S);
