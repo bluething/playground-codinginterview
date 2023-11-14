@@ -30,10 +30,11 @@ public class Sim {
                 }
             }
 
+            StringBuilder sb = new StringBuilder();
             for (char c : stack) {
-                System.out.print(c);
+                sb.append(c);
             }
-            System.out.println();
+            System.out.println(sb);
         }
     }
 }
