@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.kattis.stack_queue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Hashtable;
 
 public class teque3 {
@@ -17,6 +18,7 @@ public class teque3 {
         Hashtable<Integer, Integer> queueBack = new Hashtable<>();
         int queueBackStart = -1;
         int queueBackEnd = 0;
+        PrintWriter writer = new PrintWriter(System.out);
         for (int i = 0; i < numOfOps; i++) {
             ops = bufferedReader.readLine().split(" ");
             command = ops[0];
@@ -24,9 +26,9 @@ public class teque3 {
 
             if ("get".equals(command)) {
                 if (x >= queueFront.size()) {
-                    System.out.println(queueBack.get(x - queueFront.size() + queueBackStart + 1));
+                    writer.println(queueBack.get(x - queueFront.size() + queueBackStart + 1));
                 } else {
-                    System.out.println(queueFront.get(x + queueFrontStart + 1));
+                    writer.println(queueFront.get(x + queueFrontStart + 1));
                 }
 
                 continue;
@@ -53,5 +55,7 @@ public class teque3 {
                 queueFront.remove(queueFrontEnd);
             }
         }
+
+        writer.close();
     }
 }
