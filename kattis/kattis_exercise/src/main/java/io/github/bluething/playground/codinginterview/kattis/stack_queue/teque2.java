@@ -2,11 +2,10 @@ package io.github.bluething.playground.codinginterview.kattis.stack_queue;
 
 import io.github.bluething.playground.codinginterview.kattis.Kattio;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class teque2 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Kattio io = new Kattio(System.in, System.out);
         int numOfOps = io.getInt();
         String command;
