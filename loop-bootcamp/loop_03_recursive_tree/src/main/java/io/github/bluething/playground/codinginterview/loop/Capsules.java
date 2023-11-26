@@ -57,7 +57,6 @@ public class Capsules {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) continue;
-                if (x > row || y > col) continue;
                 if (capsules.get(x + i).get(y + j) == capsules.get(x).get(y)) return false;
             }
         }
