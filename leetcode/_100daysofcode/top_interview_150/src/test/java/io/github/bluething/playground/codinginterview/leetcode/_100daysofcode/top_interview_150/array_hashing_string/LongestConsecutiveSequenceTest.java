@@ -3,9 +3,7 @@ package io.github.bluething.playground.codinginterview.leetcode._100daysofcode.t
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 // https://leetcode.com/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-interview-150
 class LongestConsecutiveSequenceTest {
@@ -53,6 +51,20 @@ class LongestConsecutiveSequenceTest {
     @Test
     void case09() {
         Assertions.assertEquals(3, longestConsecutive3(new int[]{1,0,-1}));
+    }
+    @Test
+    void case10() {
+        Assertions.assertEquals(4, longestConsecutive4(new int[]{100,4,200,1,3,2}));
+    }
+
+    @Test
+    void case11() {
+        Assertions.assertEquals(9, longestConsecutive4(new int[]{0,3,7,2,5,8,4,6,0,1}));
+    }
+
+    @Test
+    void case12() {
+        Assertions.assertEquals(3, longestConsecutive4(new int[]{1,0,-1}));
     }
 
     // brute force solution
@@ -132,5 +144,85 @@ class LongestConsecutiveSequenceTest {
             maxLength = Math.max(curentLength, maxLength);
         }
         return Math.max(curentLength, maxLength);
+    }
+
+    private int longestConsecutive4(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+
+        UnionFind unionFind = new UnionFind(nums.length);
+        Map<Integer, Integer> valToIndex = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (valToIndex.containsKey(nums[i])) {
+                continue;
+            }
+
+            if (valToIndex.containsKey(nums[i] - 1)) {
+                unionFind.union(i, valToIndex.get(nums[i] - 1));
+            }
+
+            if (valToIndex.containsKey(nums[i] + 1)) {
+                unionFind.union(i, valToIndex.get(nums[i] + 1));
+            }
+
+            valToIndex.put(nums[i], i);
+        }
+
+        return unionFind.getLargestComponentSize();
+    }
+
+    static class UnionFind {
+        private final int[] indexes;
+        private final int[] sizes;
+        private final int[] ranks;
+
+        public UnionFind(int N) {
+            this.indexes = new int[N];
+            this.sizes = new int[N];
+            this.ranks = new int[N];
+            for (int i = 0; i < N; i++) {
+                indexes[i] = i;
+                sizes[i] = 1;
+                ranks[i] = 0;
+            }
+        }
+
+        private int find(int i) {
+            if (indexes[i] == i) {
+                return i;
+            }
+
+            return indexes[i] = find(indexes[i]);
+        }
+
+        public void union(int i, int j) {
+            int parentI = find(i);
+            int parentJ = find(j);
+            if (parentI != parentJ) {
+                if (ranks[parentI] > ranks[parentJ]) {
+                    indexes[parentJ] = parentI;
+                    sizes[parentI] += sizes[parentJ];
+                } else {
+                    indexes[parentI] = parentJ;
+                    sizes[parentJ] += sizes[parentI];
+                    if (ranks[parentI] == ranks[parentJ]) {
+                        ranks[parentJ] += 1;
+                    }
+                }
+            }
+        }
+
+        public int getLargestComponentSize() {
+            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < indexes.length; i++) {
+                if (indexes[i] == i && sizes[i] > max) {
+                    max = sizes[i];
+                }
+            }
+
+            return max;
+        }
     }
 }
