@@ -86,6 +86,7 @@ class AVL {
         w.left = T;
 
         T.height = Math.max(h(T.left), h(T.right)) + 1;
+        T.size = size(T.left) + size(T.right) + 1;
         w.height = Math.max(h(w.left), h(w.right)) + 1;
 
         return w;
@@ -102,6 +103,7 @@ class AVL {
         w.right = T;
 
         T.height = Math.max(h(T.left), h(T.right)) + 1;
+        T.size = size(T.left) + size(T.right) + 1;
         w.height = Math.max(h(w.left), h(w.right)) + 1;
 
         return w;
