@@ -150,6 +150,7 @@ class AVL {
         root = insert(root, v);
     }
 
+    // find the highest valid substring by query, meaning its ancestors are all invalid
     public int checkValid(String query) {
         BSTVertex highestValid = findHighestValid(this.root, query);
         if (highestValid == null) {
@@ -169,7 +170,7 @@ class AVL {
 
         if (T.key.compareTo(query) < 0) {   // left side is invalid char sequence, go to the right
             return findHighestValid(T.right, query);
-        } else {
+        } else {                            // left side is valid char sequence, go to the left
             return findHighestValid(T.left, query);
         }
     }
@@ -179,7 +180,7 @@ class AVL {
         }
 
         if (T.key.indexOf(query) == 0) {    // find valid char sequence, go down to the left
-            return 1 + checkValidOnTheLeft(T.left, query) + size(T.right);
+            return 1 + checkValidOnTheLeft(T.left, query) + size(T.right);  // size attribute can be used to prevent redundant traversal
         } else {
             return checkValidOnTheLeft(T.right, query);
         }
@@ -190,7 +191,7 @@ class AVL {
         }
 
         if (T.key.indexOf(query) == 0) {    // find valid char sequence, go down to the right
-            return 1 + checkValidOnTheRight(T.right, query) + size(T.left);
+            return 1 + checkValidOnTheRight(T.right, query) + size(T.left);  // size attribute can be used to prevent redundant traversal
         } else {
             return checkValidOnTheRight(T.left, query);
         }
