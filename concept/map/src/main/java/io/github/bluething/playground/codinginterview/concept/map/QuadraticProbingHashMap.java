@@ -33,10 +33,10 @@ public class QuadraticProbingHashMap {
         for (Entry entry : tables) {
             if (entry != null) {
                 int newIdx = hash(entry.key, newCapacity);  // calculate new index with new capacity
-                int step = 1;
+                int step = 0;
                 while (newTables[newIdx] != null) {         // find empty slot
-                    newIdx = (newIdx + step * step) % newCapacity;    // index always move by quadratic forward
                     ++step;
+                    newIdx = (newIdx + step * step) % newCapacity;    // index always move by quadratic forward
                 }
                 newTables[newIdx] = entry;
             }
@@ -48,13 +48,14 @@ public class QuadraticProbingHashMap {
     private int findIdx(int key) {
         int idx = hash(key, capacity);
         int startIdx = idx;
-        int step = 1;
+        int step = 0;
 
         do {
             Entry entry = tables[idx];
             if (entry == null || entry.key == key) {    // the index either null (empty) or have a value
                 return idx;
             }
+            ++step;
             idx = (idx + step * step) % capacity; // move index by quadratic forward, so eventually we can exit the loop (back to the beginning)
         } while (idx != startIdx);
 
