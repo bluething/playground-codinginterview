@@ -2,7 +2,7 @@ package io.github.bluething.playground.codinginterview.concept.map;
 
 public class QuadraticProbingHashMap {
     private static final int DEFAULT_CAPACITY = 16;
-    private static final double LOAD_FACTOR_THRESHOLD = 0.75;
+    private static final double LOAD_FACTOR_THRESHOLD = 0.5;
 
     private static class Entry {
         int key;
