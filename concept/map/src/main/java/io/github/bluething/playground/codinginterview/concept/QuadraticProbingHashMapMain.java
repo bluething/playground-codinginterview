@@ -1,4 +1,6 @@
-package io.github.bluething.playground.codinginterview.concept.map;
+package io.github.bluething.playground.codinginterview.concept;
+
+import io.github.bluething.playground.codinginterview.concept.map.QuadraticProbingHashMap;
 
 public class QuadraticProbingHashMapMain {
     public static void main(String[] args) {
