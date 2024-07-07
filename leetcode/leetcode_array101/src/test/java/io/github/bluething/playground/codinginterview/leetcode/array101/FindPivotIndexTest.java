@@ -16,8 +16,32 @@ class FindPivotIndexTest {
     void case03() {
         Assertions.assertEquals(0, pivotIndex(new int[]{2,1,-1}));
     }
+    @Test
+    void case04() {
+        Assertions.assertEquals(2, pivotIndex(new int[]{-1,-1,0,0,-1,-1}));
+    }
+    @Test
+    void case05() {
+        Assertions.assertEquals(5, pivotIndex(new int[]{-1,-1,0,1,1,0}));
+    }
 
     private int pivotIndex(int[] nums) {
-        return 0;
+        int pivot = -1;
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        int leftSum = 0;
+        int rightSum = sum;
+        for (int i = 0; i < nums.length; i++) {
+            rightSum -= nums[i];
+            if (leftSum == rightSum) {
+                pivot = i;
+                break;
+            }
+            leftSum += nums[i];
+        }
+
+        return pivot;
     }
 }
