@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode.array101;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class DuplicateZerosTest {
     @Test
     void case01() {
@@ -18,6 +21,13 @@ class DuplicateZerosTest {
     }
 
     private void duplicateZeros(int[] arr) {
-
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < arr.length; i++) {
+            queue.offer(arr[i]);
+            if (arr[i] == 0) {
+                queue.offer(0);
+            }
+            arr[i] = queue.poll();
+        }
     }
 }
