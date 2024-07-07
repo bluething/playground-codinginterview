@@ -22,39 +22,38 @@ class DiagonalTraverseTest {
     }
 
     private int[] findDiagonalOrder(int[][] mat) {
-        int row = mat.length;
-        int col = mat[0].length;
-        if (row == 0 || col == 0) {
+        int M = mat.length;
+        int N = mat[0].length;
+        if (M == 0 || N == 0) {
             return new int[]{};
         }
-
-        // x: vertical, y: horizontal
-        int x = 0, y = 0;
-        int[] result = new int[row * col];
+        
+        int col = 0, row = 0;
+        int[] result = new int[M * N];
         int idx = 0;
         while (idx < result.length) {
-            result[idx++] = mat[y][x];
-            boolean isEven = (x+y) % 2 == 0;
+            result[idx++] = mat[row][col];
+            boolean isEven = (col+row) % 2 == 0;
             // even: up right, odd: down left
             if (isEven) {
-                if (x < col - 1 && y > 0) {
-                    x++;
-                    y--;
+                if (col < N - 1 && row > 0) {
+                    col++;
+                    row--;
                     // hit edge (y=0)
-                } else if (x < col - 1) {
-                    x++;
+                } else if (col < N - 1) {
+                    col++;
                     // outside egde (y<0)
                 } else {
-                    y++;
+                    row++;
                 }
             } else {
-                if (y < row - 1 && x > 0) {
-                    y++;
-                    x--;
-                } else if (y < row - 1) {
-                    y++;
+                if (row < M - 1 && col > 0) {
+                    row++;
+                    col--;
+                } else if (row < M - 1) {
+                    row++;
                 } else {
-                    x++;
+                    col++;
                 }
             }
         }
