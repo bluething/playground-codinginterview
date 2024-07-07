@@ -27,7 +27,7 @@ class DiagonalTraverseTest {
         if (M == 0 || N == 0) {
             return new int[]{};
         }
-        
+
         int col = 0, row = 0;
         int[] result = new int[M * N];
         int idx = 0;
