@@ -14,9 +14,21 @@ class TwoSumIIInputArrayIsSortedTest {
     }
     @Test
     void case03() {
-        Assertions.assertArrayEquals(new int[]{-1,0}, twoSum(new int[]{1,2}, -1));
+        Assertions.assertArrayEquals(new int[]{1,2}, twoSum(new int[]{-1,0}, -1));
     }
     private int[] twoSum(int[] numbers, int target) {
-        return new int[]{}
+        int left = 0, right = numbers.length-1;
+        while (left < right) {
+            int sum = numbers[left] + numbers[right];
+            if (sum == target) {
+                return new int[]{left+1, right+1};
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return new int[]{};
     }
 }
