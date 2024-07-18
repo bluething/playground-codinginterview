@@ -17,6 +17,18 @@ class MoveZeroesTest {
         Assertions.assertArrayEquals(new int[]{0}, nums);
     }
     private void moveZeroes(int[] nums) {
-
+        int left = 0, right = 1;
+        while (right < nums.length) {
+            if (nums[left] != 0) {
+                left++;
+                right++;
+            } else if (nums[right] == 0) {
+                right++;
+            } else {
+                int temp = nums[right];
+                nums[right] = nums[left];
+                nums[left] = temp;
+            }
+        }
     }
 }
