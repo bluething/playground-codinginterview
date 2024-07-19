@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode.stackqueue101;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class ImplementStackUsingQueuesTest {
     @Test
     void case01() {
@@ -25,25 +28,31 @@ class ImplementStackUsingQueuesTest {
     }
 
     class MyStack {
+        private Queue<Integer> queue;
 
         public MyStack() {
-
+            queue = new LinkedList<>();
         }
 
         public void push(int x) {
-
+            queue.add(x);
+            int size = queue.size();
+            while (size > 1) {
+                queue.add(queue.remove());
+                size--;
+            }
         }
 
         public int pop() {
-            return 0;
+            return queue.remove();
         }
 
         public int top() {
-            return 0;
+            return queue.peek();
         }
 
         public boolean empty() {
-            return false;
+            return queue.isEmpty();
         }
     }
 }
