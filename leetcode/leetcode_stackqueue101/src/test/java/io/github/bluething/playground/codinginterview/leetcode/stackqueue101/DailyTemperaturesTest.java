@@ -3,6 +3,8 @@ package io.github.bluething.playground.codinginterview.leetcode.stackqueue101;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 class DailyTemperaturesTest {
     @Test
     void case01() {
@@ -20,6 +22,16 @@ class DailyTemperaturesTest {
     }
 
     private int[] dailyTemperatures(int[] temperatures) {
-        return null;
+        Stack<Integer> stack = new Stack<>();
+        int[] timeToWait = new int[temperatures.length];
+        for (int i = 0; i < temperatures.length; i++) {
+            int currTemp = temperatures[i];
+            while (!stack.isEmpty() && temperatures[stack.peek()] < currTemp) {
+                int idx = stack.pop();
+                timeToWait[idx] = i - idx;
+            }
+            stack.push(i);
+        }
+        return timeToWait;
     }
 }
