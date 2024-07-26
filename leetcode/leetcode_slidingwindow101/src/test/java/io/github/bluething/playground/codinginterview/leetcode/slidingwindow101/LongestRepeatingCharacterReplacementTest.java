@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.leetcode.slidingwindow101
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class LongestRepeatingCharacterReplacementTest {
     @Test
     void case01() {
@@ -15,6 +18,20 @@ class LongestRepeatingCharacterReplacementTest {
     }
 
     private int characterReplacement(String s, int k) {
-        return 0;
+        char[] chars = s.toCharArray();
+        int left = 0, right = 0;
+        int[] charCount = new int[26];
+        int maxLength = 0, maxCount = 0;
+        while (right < s.length()) {
+            charCount[chars[right] - 'A']++;
+            maxCount = Math.max(maxCount, charCount[chars[right] - 'A']);
+
+            if (right - left + 1 - maxCount > k) {
+                charCount[chars[left++] - 'A']--;
+            }
+            maxLength = Math.max(maxLength, right - left + 1);
+            right++;
+        }
+        return maxLength;
     }
 }
