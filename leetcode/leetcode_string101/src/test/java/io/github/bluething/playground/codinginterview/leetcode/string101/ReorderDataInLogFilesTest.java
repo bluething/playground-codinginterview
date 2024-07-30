@@ -23,7 +23,7 @@ class ReorderDataInLogFilesTest {
 
             boolean isS1Digit = Character.isDigit(split1[1].charAt(0));
             boolean isS2Digit = Character.isDigit(split2[1].charAt(0));
-            
+
             if (isS1Digit && isS2Digit) {
                 return 0;
             } else if (isS1Digit) {
