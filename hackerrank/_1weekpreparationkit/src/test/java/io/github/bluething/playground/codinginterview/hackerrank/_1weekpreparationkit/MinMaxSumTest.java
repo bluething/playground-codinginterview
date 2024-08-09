@@ -20,6 +20,15 @@ class MinMaxSumTest extends ParentTest {
     }
 
     private void miniMaxSum(List<Integer> arr) {
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+        long sum = 0L;
+        for (Integer i : arr) {
+            min = Math.min(min, i);
+            max = Math.max(max, i);
+            sum += i;
+        }
 
+        System.out.printf("%d %d", sum-max, sum-min);
     }
 }

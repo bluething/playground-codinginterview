@@ -3,6 +3,7 @@ package io.github.bluething.playground.codinginterview.hackerrank._1weekpreparat
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,22 @@ class PlusMinusTest extends ParentTest {
     }
 
     private void plusMinus(List<Integer> arr) {
+        float moreThan0 = 0.0f;
+        float lessThan0 = 0.0f;
+        float _0 = 0.0f;
+        for (Integer integer : arr) {
+            if (integer < 0) {
+                lessThan0++;
+            } else if (integer > 0) {
+                moreThan0++;
+            } else {
+                _0++;
+            }
+        }
+
+        System.out.printf("%6f%n", moreThan0 / arr.size());
+        System.out.printf("%6f%n", lessThan0 / arr.size());
+        System.out.printf("%6f", _0 / arr.size());
     }
 
 }
