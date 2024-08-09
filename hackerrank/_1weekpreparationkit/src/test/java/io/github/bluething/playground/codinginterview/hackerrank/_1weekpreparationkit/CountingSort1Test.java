@@ -16,6 +16,14 @@ class CountingSort1Test {
     }
 
     private List<Integer> countingSort(List<Integer> arr) {
-        return Collections.emptyList();
+        int[] counter = new int[100];
+        for (Integer i : arr) {
+             counter[i]++;
+        }
+        List<Integer> result = new ArrayList<>(100);
+        for (int i = 0; i < counter.length; i++) {
+            result.add(i, counter[i]);
+        }
+        return result;
     }
 }

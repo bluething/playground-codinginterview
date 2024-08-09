@@ -14,6 +14,12 @@ class DiagonalDifferenceTest {
     }
 
     private int diagonalDifference(List<List<Integer>> arr) {
-        return 0;
+        int sumLeft = 0, sumRight = 0;
+        int left = 0, right = arr.get(0).size()-1;
+        for (List<Integer> integers : arr) {
+            sumLeft += integers.get(left++);
+            sumRight += integers.get(right--);
+        }
+        return Math.abs(sumLeft - sumRight);
     }
 }

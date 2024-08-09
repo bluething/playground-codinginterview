@@ -15,6 +15,10 @@ class LonelyIntegerTest {
     // b ^ 0 = b;
     // b ^ a ^ a = b
     private int lonelyinteger(List<Integer> a) {
-        return -1;
+        int lonely = 0;
+        for (Integer integer : a) {
+            lonely ^= integer;
+        }
+        return lonely;
     }
 }
