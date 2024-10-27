@@ -14,6 +14,18 @@ class FindMinimuminRotatedSortedArrayIITest {
     }
 
     private int findMin(int[] nums) {
-        return 0;
+        int left = 0, right = nums.length - 1;
+        if (nums[left] < nums[right]) {
+            return nums[left];
+        }
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return Math.min(nums[left], nums[right]);
     }
 }
