@@ -18,6 +18,19 @@ class FindSmallestLetterGreaterThanTargetTest {
     }
 
     private char nextGreatestLetter(char[] letters, char target) {
-        return '0';
+        int left = 0, right = letters.length - 1;
+        if (letters[left] > target || letters[right] <= target) {
+            return letters[left];
+        }
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            if (letters[mid] > target) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        return letters[right];
     }
 }
